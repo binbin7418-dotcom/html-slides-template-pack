@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editorial Magazine — Between Cities, Issue No. 12: The Small Shop Era</title>
+<link rel="stylesheet" href="vendor/reset.css">
+<link rel="stylesheet" href="vendor/reveal.css">
+<style>
+  /* ============ EDITORIAL MAGAZINE — original design system ============ */
+  :root{
+    --cream:#F4EEE0;
+    --cream-2:#EEE5D0;
+    --ink:#17150F;
+    --ink-soft:#454136;
+    --mute:#8B8471;
+    --line:#CFC5AB;
+    --red:#AE3A2C;
+    --serif:"Noto Serif",Georgia,"Times New Roman",serif;
+    --sans:"Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  html,body{background:var(--cream);}
+  .reveal-viewport{background:var(--cream);}
+  .reveal{font-family:var(--serif);color:var(--ink);font-size:26px;}
+  .reveal .slides{text-align:left;}
+  .reveal .slides section{height:100%;padding:0;}
+  .reveal h1,.reveal h2,.reveal h3{font-family:var(--serif);color:var(--ink);text-transform:none;margin:0;}
+  ::selection{background:var(--red);color:var(--cream);}
+
+  .page{height:100%;box-sizing:border-box;padding:56px 84px 48px;display:flex;flex-direction:column;}
+
+  /* Issue line / folio */
+  .issue{display:flex;justify-content:space-between;align-items:baseline;
+    border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);
+    padding:10px 2px;font-family:var(--sans);font-size:13px;letter-spacing:.26em;color:var(--ink);}
+  .issue .r{color:var(--red);font-weight:700;}
+  .folio{margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;
+    border-top:1px solid var(--ink);padding-top:12px;
+    font-family:var(--sans);font-size:12.5px;letter-spacing:.22em;color:var(--ink-soft);}
+  .folio .c{color:var(--red);font-weight:700;}
+
+  .kicker{font-family:var(--sans);font-size:13px;letter-spacing:.38em;color:var(--red);font-weight:700;margin:38px 0 16px;}
+  .story-h{font-size:52px;font-weight:900;line-height:1.22;letter-spacing:-.005em;}
+
+  /* ---------- Cover ---------- */
+  .masthead-name{text-align:center;margin-top:42px;}
+  .masthead-name .en{font-family:var(--sans);font-size:14px;letter-spacing:.85em;color:var(--ink-soft);margin-bottom:14px;padding-left:.85em;}
+  .masthead-name .cn{font-size:88px;font-weight:900;letter-spacing:.01em;line-height:1;}
+  .cover-grid{margin-top:50px;display:grid;grid-template-columns:250px 1fr 250px;gap:44px;align-items:start;}
+  .cover-lines{font-size:16.5px;line-height:1.95;color:var(--ink-soft);}
+  .cover-lines .cl-t{font-family:var(--sans);font-size:12px;letter-spacing:.26em;color:var(--red);font-weight:700;margin-bottom:8px;}
+  .cover-lines p{margin:0 0 20px;}
+  .cover-title h1{font-size:96px;font-weight:900;line-height:1.08;text-align:center;}
+  .cover-title .sub{text-align:center;margin-top:26px;font-size:22px;line-height:1.65;color:var(--ink-soft);}
+  .cover-title .byline{text-align:center;margin-top:28px;font-family:var(--sans);font-size:13.5px;letter-spacing:.26em;color:var(--ink);}
+  .cover-title .byline span{color:var(--red);}
+  .barcode{margin:8px auto 0;width:110px;height:34px;
+    background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px,var(--ink) 5px 6px,transparent 6px 10px,var(--ink) 10px 13px,transparent 13px 15px);}
+
+  /* ---------- Contents ---------- */
+  .toc{margin-top:40px;border-top:2px solid var(--ink);}
+  .toc-row{display:flex;align-items:baseline;gap:18px;padding:20px 0;border-bottom:1px solid var(--line);}
+  .toc-row .sec{font-family:var(--sans);font-size:12.5px;letter-spacing:.24em;color:var(--red);font-weight:700;width:170px;flex:none;}
+  .toc-row .t{font-size:25px;font-weight:700;}
+  .toc-row .dots{flex:1;border-bottom:2px dotted var(--mute);transform:translateY(-5px);}
+  .toc-row .pg{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;}
+
+  /* ---------- Section divider ---------- */
+  .divider{justify-content:center;text-align:center;align-items:center;}
+  .divider .sec-no{font-family:var(--sans);font-size:14px;letter-spacing:.5em;color:var(--red);font-weight:700;}
+  .divider .sec-title{font-size:76px;font-weight:900;line-height:1.14;margin-top:26px;}
+  .divider .sec-sub{margin-top:24px;font-size:21px;line-height:1.65;color:var(--ink-soft);max-width:720px;}
+  .divider .rule{width:72px;border-top:3px solid var(--ink);margin-top:38px;}
+
+  /* ---------- Feature (single column) ---------- */
+  .story-cols{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:52px;}
+  .story-cols p{font-size:19.5px;line-height:1.85;color:var(--ink-soft);margin:0 0 18px;text-align:justify;}
+  .story-cols p b{color:var(--ink);}
+  .dropcap::first-letter{font-size:62px;font-weight:900;color:var(--ink);float:left;line-height:1.02;padding:4px 12px 0 0;}
+  .single-col{margin-top:32px;max-width:880px;}
+  .single-col p{font-size:21px;line-height:1.9;color:var(--ink-soft);margin:0 0 22px;text-align:justify;}
+  .single-col p b{color:var(--ink);}
+  .pullquote{margin-top:6px;border-top:2px solid var(--red);border-bottom:1px solid var(--line);
+    padding:20px 4px 18px;}
+  .pullquote .q{font-size:25px;font-weight:700;line-height:1.55;color:var(--ink);}
+  .pullquote .a{margin-top:12px;font-family:var(--sans);font-size:13px;letter-spacing:.2em;color:var(--mute);}
+
+  /* ---------- Numbers / data ---------- */
+  .nums{margin-top:42px;display:grid;grid-template-columns:repeat(3,1fr);border-top:3px solid var(--ink);}
+  .nums .cell{padding:30px 26px 26px;border-bottom:1px solid var(--line);}
+  .nums .cell + .cell{border-left:1px solid var(--line);}
+  .nums .n{font-size:74px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;}
+  .nums .n em{font-style:normal;color:var(--red);font-size:38px;margin-left:2px;}
+  .nums .t{margin-top:14px;font-size:17.5px;font-weight:700;}
+  .nums .d{margin-top:6px;font-size:15.5px;line-height:1.65;color:var(--ink-soft);}
+  .ledger{margin-top:36px;}
+  .ledger .lh{display:flex;justify-content:space-between;font-family:var(--sans);
+    font-size:13px;letter-spacing:.26em;color:var(--mute);padding-bottom:10px;border-bottom:2px solid var(--ink);}
+  .ledger .lr{display:flex;align-items:baseline;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .ledger .lr .name{font-weight:700;white-space:nowrap;}
+  .ledger .lr .dots{flex:1;border-bottom:2px dotted var(--mute);transform:translateY(-5px);}
+  .ledger .lr .val{font-variant-numeric:tabular-nums;font-weight:700;}
+  .ledger .lr .chg{font-family:var(--sans);font-size:13.5px;color:var(--red);width:130px;text-align:right;letter-spacing:.04em;}
+
+  /* ---------- Table ---------- */
+  table.mag{margin-top:40px;width:100%;border-collapse:collapse;font-size:19.5px;}
+  table.mag th{font-family:var(--sans);font-size:13px;letter-spacing:.22em;color:var(--mute);font-weight:700;
+    text-align:right;padding:0 16px 12px;border-bottom:2px solid var(--ink);}
+  table.mag th:first-child{text-align:left;padding-left:0;}
+  table.mag td{padding:19px 16px 17px;border-bottom:1px solid var(--line);text-align:right;
+    font-variant-numeric:tabular-nums;color:var(--ink-soft);}
+  table.mag td:first-child{text-align:left;padding-left:0;color:var(--ink);font-weight:700;}
+  table.mag td.hl{color:var(--red);font-weight:700;}
+  table.mag tr.total td{border-bottom:none;border-top:2px solid var(--ink);color:var(--ink);font-weight:700;}
+
+  /* ---------- Quote ---------- */
+  .quote-page{justify-content:center;}
+  .quote-text{font-size:50px;font-weight:700;line-height:1.4;max-width:1140px;}
+  .quote-text .hl{color:var(--red);}
+  .quote-attr{margin-top:40px;font-family:var(--sans);font-size:14px;letter-spacing:.22em;color:var(--ink-soft);}
+  .quote-attr b{color:var(--ink);}
+
+  /* ---------- Comparison ---------- */
+  .compare{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:3px solid var(--ink);}
+  .compare .side{padding:28px 40px 6px 0;}
+  .compare .side + .side{border-left:1px solid var(--line);padding-left:40px;padding-right:0;}
+  .compare .side .when{font-family:var(--sans);font-size:13px;letter-spacing:.26em;color:var(--mute);font-weight:700;margin-bottom:8px;}
+  .compare .side.now .when{color:var(--red);}
+  .compare .side .big{font-size:36px;font-weight:900;margin-bottom:22px;line-height:1.25;}
+  .compare .item{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+    padding:14px 0;border-top:1px solid var(--line);}
+  .compare .item .k{font-size:18.5px;color:var(--ink-soft);}
+  .compare .item .v{font-size:23px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .compare .side.now .item .v{color:var(--red);}
+
+  /* ---------- Closing ---------- */
+  .closing{justify-content:center;text-align:center;align-items:center;}
+  .closing .fin{font-family:var(--sans);font-size:14px;letter-spacing:.5em;color:var(--red);font-weight:700;}
+  .closing .big{font-size:72px;font-weight:900;line-height:1.18;margin-top:28px;}
+  .closing .sub{margin-top:24px;font-size:21px;line-height:1.65;color:var(--ink-soft);max-width:780px;}
+  .closing .colophon{margin-top:52px;border-top:1px solid var(--ink);padding-top:22px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:40px;width:100%;text-align:left;}
+  .closing .colophon .k{font-family:var(--sans);font-size:12px;letter-spacing:.26em;color:var(--mute);margin-bottom:9px;}
+  .closing .colophon .v{font-size:18px;font-weight:700;}
+
+  /* ---------- Print / PDF export ---------- */
+  @media print{
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    html,body{background:var(--cream);}
+  }
+
+  /* Print-PDF sizing: every exported page is exactly one slide tall */
+  html.print-pdf .reveal .slides .pdf-page{height:900px !important;}
+  html.print-pdf .reveal .slides section{height:900px !important;}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <!-- 01 · Cover -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>VOL. 12 · NO. 12</span><span>CITY WATCH</span><span class="r">AUTUMN 2026</span></div>
+      <div class="masthead-name">
+        <div class="en">A QUARTERLY OF CITY LIFE</div>
+        <div class="cn">Between Cities</div>
+      </div>
+      <div class="cover-grid">
+        <div class="cover-lines">
+          <div class="cl-t">IN THIS ISSUE</div>
+          <p>The Small Shop Era: how independent cafés outlast the chains</p>
+          <p>The wet market did not disappear — it moved</p>
+          <p>Slow work: a conversation with a master carpenter</p>
+        </div>
+        <div class="cover-title">
+          <h1>The Small<br>Shop Era</h1>
+          <p class="sub">As the chains retreat, the nine-seat café on the corner is still there.<br>We spent a season inside sixty-one of them to find out why.</p>
+          <div class="byline">WORDS <span>/</span> CLARA REYES &nbsp;·&nbsp; PHOTOS <span>/</span> TOMÁS GREY</div>
+          <div class="barcode"></div>
+        </div>
+        <div class="cover-lines">
+          <div class="cl-t">EDITOR'S NOTE</div>
+          <p>We visited sixty-one independent cafés in four cities and recorded their ledgers, their menus, and their roasters at four in the morning.</p>
+          <p>The numbers are on page 38, in "By the Numbers."</p>
+        </div>
+      </div>
+      <div class="folio"><span>BETWEEN CITIES</span><span class="c">COVER STORY</span><span>$12 / £9</span></div>
+    </div>
+  </section>
+
+  <!-- 02 · Contents -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>CONTENTS</span><span>BETWEEN CITIES · NO. 12</span><span class="r">AUTUMN 2026</span></div>
+      <div class="kicker">IN THIS ISSUE</div>
+      <h2 class="story-h">What you will find inside</h2>
+      <div class="toc">
+        <div class="toc-row"><span class="sec">THE FEATURE</span><span class="t">The Small Shop Era</span><span class="dots"></span><span class="pg">24</span></div>
+        <div class="toc-row"><span class="sec">BY THE NUMBERS</span><span class="t">First survive, then have style</span><span class="dots"></span><span class="pg">38</span></div>
+        <div class="toc-row"><span class="sec">THE LEDGER</span><span class="t">What a café's money looks like</span><span class="dots"></span><span class="pg">41</span></div>
+        <div class="toc-row"><span class="sec">CONVERSATION</span><span class="t">Slow work, with a master carpenter</span><span class="dots"></span><span class="pg">52</span></div>
+        <div class="toc-row"><span class="sec">LAST PAGE</span><span class="t">A note before you close the issue</span><span class="dots"></span><span class="pg">64</span></div>
+      </div>
+      <div class="folio"><span>BETWEEN CITIES · NO. 12</span><span class="c">CONTENTS</span><span>P. 4</span></div>
+    </div>
+  </section>
+
+  <!-- 03 · Section divider -->
+  <section>
+    <div class="page divider">
+      <div class="sec-no">SECTION ONE · THE FEATURE</div>
+      <div class="sec-title">The roaster starts<br>at four a.m.</div>
+      <p class="sec-sub">Before the interviews and the ledgers, one scene: a back room, a small machine, and the arithmetic that keeps a nine-seat café alive.</p>
+      <div class="rule"></div>
+      <div class="folio" style="position:absolute;left:84px;right:84px;bottom:48px;"><span>BETWEEN CITIES · NO. 12</span><span class="c">THE FEATURE</span><span>P. 24</span></div>
+    </div>
+  </section>
+
+  <!-- 04 · Feature — two-column body -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>THE FEATURE</span><span>THE SMALL SHOP ERA</span><span class="r">P. 24</span></div>
+      <div class="kicker">COVER STORY · THE SURVIVAL OF INDEPENDENT CAFÉS</div>
+      <h2 class="story-h">The 4 a.m. roaster is more honest than any business plan</h2>
+      <div class="story-cols">
+        <div>
+          <p class="dropcap">Halfway Café has been open for seven years on a side street in the old town: thirty-four square metres, nine seats. Every night after closing, the owner, Marta Ibarra, roasts the next day's beans herself. It is not romance, she says — it is arithmetic. <b>Hire a roaster, and the shop has no profit left; roast it herself, and the margin grows by eleven points.</b></p>
+          <p>She is not unusual. Of the sixty-one independent cafés we visited, forty-three have an owner who personally covers at least two jobs — roasting, buying, bookkeeping, and the bar, often all in the same person.</p>
+        </div>
+        <div>
+          <div class="pullquote">
+            <div class="q">"People don't come for the caffeine. They come because this place is still here."</div>
+            <div class="a">— MARTA IBARRA, OWNER, HALFWAY CAFÉ</div>
+          </div>
+          <p style="margin-top:18px;">The real moat of the small shop is not the product. It is <b>the five-hundred-metre circle of regulars</b>: she knows their orders, remembers whose kid has exams this spring. No central kitchen can copy that — and it is why landlords renew her lease when the rent goes up.</p>
+        </div>
+      </div>
+      <div class="folio"><span>BETWEEN CITIES · NO. 12</span><span class="c">THE FEATURE</span><span>P. 24 — 25</span></div>
+    </div>
+  </section>
+
+  <!-- 05 · Essay — single column -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>THE ARGUMENT</span><span>THE SMALL SHOP ERA</span><span class="r">P. 31</span></div>
+      <div class="kicker">WHY SMALL WINS SLOWLY</div>
+      <h2 class="story-h" style="font-size:48px;">Scale was supposed to win. It won something else.</h2>
+      <div class="single-col">
+        <p>The chains did not lose because their coffee got worse. They lost because the thing they optimised — a identical cup, anywhere — stopped being scarce. A traveller can get that cup at the airport. What she cannot get at the airport is <b>a room where somebody knows her name</b>, and small shops turned out to be the only businesses still selling it.</p>
+        <p>There is a catch, and this issue does not hide it: the model only works while the owner's labour stays cheap — usually her own. The shops in our sample that failed had almost always tried to hire their way out of the back room too early. <b>Small wins slowly, or it does not win at all.</b></p>
+      </div>
+      <div class="folio"><span>BETWEEN CITIES · NO. 12</span><span class="c">THE ARGUMENT</span><span>P. 31</span></div>
+    </div>
+  </section>
+
+  <!-- 06 · By the numbers -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>BY THE NUMBERS</span><span>INDEPENDENT CAFÉS · N = 61</span><span class="r">P. 38</span></div>
+      <div class="kicker">THIS ISSUE'S DATA</div>
+      <h2 class="story-h" style="font-size:48px;">First survive, then have style</h2>
+      <div class="nums">
+        <div class="cell">
+          <div class="n">5.8<em>yrs</em></div>
+          <div class="t">Average lifespan of the sample</div>
+          <div class="d">Chain single stores averaged 3.1 years in the same period. Of shops older than five years, seven in ten own their premises or hold a long lease.</div>
+        </div>
+        <div class="cell">
+          <div class="n">41<em>%</em></div>
+          <div class="t">Of revenue comes from regulars</div>
+          <div class="d">Customers with ten or more visits account for the bulk of income; the median gap between their visits is six days.</div>
+        </div>
+        <div class="cell">
+          <div class="n">2.4</div>
+          <div class="t">Full-time staff, on average</div>
+          <div class="d">Owner included. Labour is the second-largest cost after rent — and the most flexible line in the ledger.</div>
+        </div>
+      </div>
+      <div class="ledger">
+        <div class="lh"><span>WHERE THE MONEY GOES (SHARE OF REVENUE)</span><span>VS. THREE YEARS AGO</span></div>
+        <div class="lr"><span class="name">Rent</span><span class="dots"></span><span class="val">24.6%</span><span class="chg">▲ 3.2 pts</span></div>
+        <div class="lr"><span class="name">Labour</span><span class="dots"></span><span class="val">21.3%</span><span class="chg">▼ 1.8 pts</span></div>
+        <div class="lr"><span class="name">Ingredients (beans, milk, sugar)</span><span class="dots"></span><span class="val">18.9%</span><span class="chg">▲ 0.7 pts</span></div>
+        <div class="lr"><span class="name">Utilities &amp; sundries</span><span class="dots"></span><span class="val">6.4%</span><span class="chg">roughly flat</span></div>
+      </div>
+      <div class="folio"><span>BETWEEN CITIES · NO. 12</span><span class="c">BY THE NUMBERS</span><span>P. 38</span></div>
+    </div>
+  </section>
+
+  <!-- 07 · Table -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>THE LEDGER</span><span>ONE SHOP, ONE YEAR</span><span class="r">P. 41</span></div>
+      <div class="kicker">HALFWAY CAFÉ · ANONYMISED ACCOUNTS</div>
+      <h2 class="story-h" style="font-size:48px;">A year in one café's books</h2>
+      <table class="mag">
+        <tr><th>LINE (USD)</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr>
+        <tr><td>Revenue</td><td>182,400</td><td>196,900</td><td>211,300</td><td class="hl">228,750</td></tr>
+        <tr><td>Rent</td><td>49,900</td><td>52,300</td><td>54,800</td><td>56,300</td></tr>
+        <tr><td>Labour (incl. owner)</td><td>51,200</td><td>49,600</td><td>48,900</td><td class="hl">48,700</td></tr>
+        <tr><td>Ingredients</td><td>36,100</td><td>39,800</td><td>41,500</td><td>43,200</td></tr>
+        <tr class="total"><td>Operating margin</td><td>9.1%</td><td>11.8%</td><td>13.4%</td><td>15.2%</td></tr>
+      </table>
+      <p style="margin-top:26px;font-size:16.5px;line-height:1.7;color:var(--ink-soft);">Published with the owner's permission; figures rounded and identifying details changed. Labour includes the owner's own salary at market rate — the line most small shops quietly leave out.</p>
+      <div class="folio"><span>BETWEEN CITIES · NO. 12</span><span class="c">THE LEDGER</span><span>P. 41</span></div>
+    </div>
+  </section>
+
+  <!-- 08 · Quote -->
+  <section>
+    <div class="page quote-page">
+      <p class="quote-text">"A chain store is a promise that nothing will surprise you. A small shop is a promise that <span class="hl">someone specific</span> is standing behind the counter."</p>
+      <div class="quote-attr"><b>DR. INES HALVORSEN</b> &nbsp;·&nbsp; URBAN ECONOMIST, INTERVIEWED FOR THIS ISSUE</div>
+      <div class="folio" style="position:absolute;left:84px;right:84px;bottom:48px;"><span>BETWEEN CITIES · NO. 12</span><span class="c">THE CONVERSATION</span><span>P. 52</span></div>
+    </div>
+  </section>
+
+  <!-- 09 · Comparison -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>SIDE BY SIDE</span><span>TWO WAYS TO SELL COFFEE</span><span class="r">P. 45</span></div>
+      <div class="kicker">THE HONEST COMPARISON</div>
+      <h2 class="story-h" style="font-size:48px;">Chain vs. corner shop</h2>
+      <div class="compare">
+        <div class="side">
+          <div class="when">THE CHAIN STORE</div>
+          <div class="big">Built to be everywhere</div>
+          <div class="item"><span class="k">Average store lifespan</span><span class="v">3.1 yrs</span></div>
+          <div class="item"><span class="k">Staff per store</span><span class="v">9.6</span></div>
+          <div class="item"><span class="k">Revenue from regulars</span><span class="v">18%</span></div>
+          <div class="item"><span class="k">Menu changes per year</span><span class="v">2</span></div>
+        </div>
+        <div class="side now">
+          <div class="when">THE INDEPENDENT</div>
+          <div class="big">Built to be somewhere</div>
+          <div class="item"><span class="k">Average store lifespan</span><span class="v">5.8 yrs</span></div>
+          <div class="item"><span class="k">Staff per store</span><span class="v">2.4</span></div>
+          <div class="item"><span class="k">Revenue from regulars</span><span class="v">41%</span></div>
+          <div class="item"><span class="k">Menu changes per year</span><span class="v">11</span></div>
+        </div>
+      </div>
+      <div class="folio"><span>BETWEEN CITIES · NO. 12</span><span class="c">SIDE BY SIDE</span><span>P. 45</span></div>
+    </div>
+  </section>
+
+  <!-- 10 · Closing -->
+  <section>
+    <div class="page closing">
+      <div class="fin">FIN · LAST PAGE</div>
+      <div class="big">Next issue:<br>the night markets move indoors.</div>
+      <p class="sub">Thank you for reading. If a shop in this issue is on your street, the best review you can give it is to walk in tomorrow morning.</p>
+      <div class="colophon">
+        <div><div class="k">SUBSCRIBE</div><div class="v">betweencities.example</div></div>
+        <div><div class="k">LETTERS</div><div class="v">letters@betweencities.example</div></div>
+        <div><div class="k">NEXT ISSUE</div><div class="v">Winter 2026 · January</div></div>
+      </div>
+      <div class="folio" style="position:absolute;left:84px;right:84px;bottom:48px;"><span>BETWEEN CITIES · NO. 12</span><span class="c">LAST PAGE</span><span>P. 64</span></div>
+    </div>
+  </section>
+
+</div>
+</div>
+<script src="vendor/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    width:1440, height:900, margin:0,
+    hash:true, controls:!new URLSearchParams(location.search).has('shot'), controlsTutorial:false,
+    progress:false, slideNumber:false, transition:'none',
+    backgroundTransition:'none'
+  });
+</script>
+</body>
+</html>
