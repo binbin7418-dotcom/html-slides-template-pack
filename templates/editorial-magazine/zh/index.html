@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>刊 · 杂志排版 — 《城市之间》独立咖啡馆特稿</title>
+<link rel="stylesheet" href="vendor/reset.css">
+<link rel="stylesheet" href="vendor/reveal.css">
+<style>
+  /* ============ 刊 / EDITORIAL MAGAZINE — 原创设计系统 ============ */
+  :root{
+    --cream:#F4EEE0;
+    --cream-2:#EEE5D0;
+    --ink:#17150F;
+    --ink-soft:#454136;
+    --mute:#8B8471;
+    --line:#CFC5AB;
+    --red:#AE3A2C;
+    --serif:"Noto Serif CJK SC","Songti SC",serif;
+    --sans:"Noto Sans CJK SC","PingFang SC",sans-serif;
+  }
+  html,body{background:var(--cream);}
+  .reveal-viewport{background:var(--cream);}
+  .reveal{font-family:var(--serif);color:var(--ink);font-size:26px;}
+  .reveal .slides{text-align:left;}
+  .reveal .slides section{height:100%;padding:0;}
+  .reveal h1,.reveal h2,.reveal h3{font-family:var(--serif);color:var(--ink);text-transform:none;margin:0;}
+  ::selection{background:var(--red);color:var(--cream);}
+
+  .page{height:100%;box-sizing:border-box;padding:56px 84px 48px;display:flex;flex-direction:column;}
+
+  /* 期刊眉线 */
+  .issue{display:flex;justify-content:space-between;align-items:baseline;
+    border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);
+    padding:10px 2px;font-family:var(--sans);font-size:13px;letter-spacing:.3em;color:var(--ink);}
+  .issue .r{color:var(--red);font-weight:700;}
+  .folio{margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;
+    border-top:1px solid var(--ink);padding-top:12px;
+    font-family:var(--sans);font-size:12.5px;letter-spacing:.26em;color:var(--ink-soft);}
+  .folio .c{color:var(--red);font-weight:700;}
+
+  .kicker{font-family:var(--sans);font-size:13px;letter-spacing:.42em;color:var(--red);font-weight:700;margin:40px 0 16px;}
+  .story-h{font-size:54px;font-weight:900;line-height:1.3;}
+
+  /* ---------- 封面 ---------- */
+  .masthead-name{text-align:center;margin-top:44px;}
+  .masthead-name .en{font-family:var(--sans);font-size:14px;letter-spacing:.9em;color:var(--ink-soft);margin-bottom:14px;padding-left:.9em;}
+  .masthead-name .cn{font-size:92px;font-weight:900;letter-spacing:.14em;line-height:1;}
+  .cover-grid{margin-top:52px;display:grid;grid-template-columns:250px 1fr 250px;gap:44px;align-items:start;}
+  .cover-lines{font-size:16.5px;line-height:2.05;color:var(--ink-soft);}
+  .cover-lines .cl-t{font-family:var(--sans);font-size:12px;letter-spacing:.3em;color:var(--red);font-weight:700;margin-bottom:8px;}
+  .cover-lines p{margin:0 0 20px;}
+  .cover-title h1{font-size:104px;font-weight:900;line-height:1.16;letter-spacing:.02em;text-align:center;}
+  .cover-title .sub{text-align:center;margin-top:26px;font-size:22px;line-height:1.8;color:var(--ink-soft);}
+  .cover-title .byline{text-align:center;margin-top:30px;font-family:var(--sans);font-size:14px;letter-spacing:.32em;color:var(--ink);}
+  .cover-title .byline span{color:var(--red);}
+  .barcode{margin:6px auto 0;width:110px;height:34px;
+    background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px,var(--ink) 5px 6px,transparent 6px 10px,var(--ink) 10px 13px,transparent 13px 15px);}
+
+  /* ---------- 目录 ---------- */
+  .toc{margin-top:42px;border-top:2px solid var(--ink);}
+  .toc-row{display:flex;align-items:baseline;gap:18px;padding:21px 0;border-bottom:1px solid var(--line);}
+  .toc-row .sec{font-family:var(--sans);font-size:12.5px;letter-spacing:.3em;color:var(--red);font-weight:700;width:150px;flex:none;}
+  .toc-row .t{font-size:26px;font-weight:700;}
+  .toc-row .dots{flex:1;border-bottom:2px dotted var(--mute);transform:translateY(-5px);}
+  .toc-row .pg{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;}
+
+  /* ---------- 章节页 ---------- */
+  .divider{justify-content:center;text-align:center;align-items:center;}
+  .divider .sec-no{font-family:var(--sans);font-size:14px;letter-spacing:.5em;color:var(--red);font-weight:700;}
+  .divider .sec-title{font-size:78px;font-weight:900;line-height:1.22;margin-top:26px;}
+  .divider .sec-sub{margin-top:26px;font-size:21px;line-height:1.75;color:var(--ink-soft);max-width:740px;}
+  .divider .rule{width:72px;border-top:3px solid var(--ink);margin-top:38px;}
+
+  /* ---------- 特稿页（双栏正文） ---------- */
+  .story-cols{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:52px;}
+  .story-cols p{font-size:19.5px;line-height:2.02;color:var(--ink-soft);margin:0 0 18px;text-align:justify;}
+  .story-cols p b{color:var(--ink);}
+  .dropcap::first-letter{font-size:64px;font-weight:900;color:var(--ink);float:left;line-height:1.02;padding:6px 12px 0 0;}
+  .pullquote{margin-top:6px;border-top:2px solid var(--red);border-bottom:1px solid var(--line);
+    padding:20px 4px 18px;}
+  .pullquote .q{font-size:25px;font-weight:700;line-height:1.65;color:var(--ink);}
+  .pullquote .a{margin-top:12px;font-family:var(--sans);font-size:13px;letter-spacing:.24em;color:var(--mute);}
+
+  /* ---------- 单栏正文 ---------- */
+  .single-col{margin-top:34px;max-width:900px;}
+  .single-col p{font-size:21.5px;line-height:2;color:var(--ink-soft);margin:0 0 24px;text-align:justify;}
+  .single-col p b{color:var(--ink);}
+
+  /* ---------- 数字页 ---------- */
+  .nums{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);border-top:3px solid var(--ink);}
+  .nums .cell{padding:30px 26px 26px;border-bottom:1px solid var(--line);}
+  .nums .cell + .cell{border-left:1px solid var(--line);}
+  .nums .n{font-size:76px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;}
+  .nums .n em{font-style:normal;color:var(--red);font-size:40px;margin-left:2px;}
+  .nums .t{margin-top:14px;font-size:17.5px;font-weight:700;}
+  .nums .d{margin-top:6px;font-size:15.5px;line-height:1.7;color:var(--ink-soft);}
+  .ledger{margin-top:38px;}
+  .ledger .lh{display:flex;justify-content:space-between;font-family:var(--sans);
+    font-size:13px;letter-spacing:.3em;color:var(--mute);padding-bottom:10px;border-bottom:2px solid var(--ink);}
+  .ledger .lr{display:flex;align-items:baseline;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);font-size:19px;}
+  .ledger .lr .name{font-weight:700;white-space:nowrap;}
+  .ledger .lr .dots{flex:1;border-bottom:2px dotted var(--mute);transform:translateY(-5px);}
+  .ledger .lr .val{font-variant-numeric:tabular-nums;font-weight:700;}
+  .ledger .lr .chg{font-family:var(--sans);font-size:13.5px;color:var(--red);width:120px;text-align:right;letter-spacing:.06em;}
+
+  /* ---------- 表格页 ---------- */
+  table.mag{margin-top:42px;width:100%;border-collapse:collapse;font-size:19.5px;}
+  table.mag th{font-family:var(--sans);font-size:13px;letter-spacing:.26em;color:var(--mute);font-weight:700;
+    text-align:right;padding:0 16px 12px;border-bottom:2px solid var(--ink);}
+  table.mag th:first-child{text-align:left;padding-left:0;}
+  table.mag td{padding:19px 16px 17px;border-bottom:1px solid var(--line);text-align:right;
+    font-variant-numeric:tabular-nums;color:var(--ink-soft);}
+  table.mag td:first-child{text-align:left;padding-left:0;color:var(--ink);font-weight:700;}
+  table.mag td.hl{color:var(--red);font-weight:700;}
+  table.mag tr.total td{border-bottom:none;border-top:2px solid var(--ink);color:var(--ink);font-weight:700;}
+
+  /* ---------- 引用页 ---------- */
+  .quote-page{justify-content:center;}
+  .quote-text{font-size:52px;font-weight:900;line-height:1.5;max-width:1140px;}
+  .quote-text .hl{color:var(--red);}
+  .quote-attr{margin-top:42px;font-family:var(--sans);font-size:14px;letter-spacing:.28em;color:var(--ink-soft);}
+  .quote-attr b{color:var(--ink);}
+
+  /* ---------- 对比页 ---------- */
+  .compare{margin-top:42px;display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:3px solid var(--ink);}
+  .compare .side{padding:28px 40px 6px 0;}
+  .compare .side + .side{border-left:1px solid var(--line);padding-left:40px;padding-right:0;}
+  .compare .side .when{font-family:var(--sans);font-size:13px;letter-spacing:.3em;color:var(--mute);font-weight:700;margin-bottom:8px;}
+  .compare .side.now .when{color:var(--red);}
+  .compare .side .big{font-size:38px;font-weight:900;margin-bottom:22px;line-height:1.3;}
+  .compare .item{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+    padding:14px 0;border-top:1px solid var(--line);}
+  .compare .item .k{font-size:18.5px;color:var(--ink-soft);}
+  .compare .item .v{font-size:23px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .compare .side.now .item .v{color:var(--red);}
+
+  /* ---------- 结尾页 ---------- */
+  .closing{justify-content:center;text-align:center;align-items:center;}
+  .closing .fin{font-family:var(--sans);font-size:14px;letter-spacing:.5em;color:var(--red);font-weight:700;}
+  .closing .big{font-size:74px;font-weight:900;line-height:1.3;margin-top:28px;}
+  .closing .sub{margin-top:26px;font-size:21px;line-height:1.75;color:var(--ink-soft);max-width:800px;}
+  .closing .colophon{margin-top:54px;border-top:1px solid var(--ink);padding-top:22px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:40px;width:100%;text-align:left;}
+  .closing .colophon .k{font-family:var(--sans);font-size:12px;letter-spacing:.3em;color:var(--mute);margin-bottom:9px;}
+  .closing .colophon .v{font-size:18px;font-weight:700;}
+
+  /* ---------- 打印 / PDF 导出 ---------- */
+  @media print{
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    html,body{background:var(--cream);}
+  }
+
+  /* Print-PDF sizing: every exported page is exactly one slide tall */
+  html.print-pdf .reveal .slides .pdf-page{height:900px !important;}
+  html.print-pdf .reveal .slides section{height:900px !important;}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <!-- ① 封面 -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>VOL. 12 · 第十二期</span><span>城市观察 / CITY&nbsp;WATCH</span><span class="r">2026 年 · 秋</span></div>
+      <div class="masthead-name">
+        <div class="en">BETWEEN&nbsp;CITIES</div>
+        <div class="cn">城市之间</div>
+      </div>
+      <div class="cover-grid">
+        <div class="cover-lines">
+          <div class="cl-t">本期目录</div>
+          <p>小店时代：独立咖啡馆的生存实录</p>
+          <p>菜市场没有消失，它只是搬了家</p>
+          <p>对话建筑师王澍门徒：慢工细活</p>
+        </div>
+        <div class="cover-title">
+          <h1>小店<br>时代</h1>
+          <p class="sub">连锁品牌退潮之后，<br>街角那家只坐得下九个人的咖啡馆，<br>为什么反而活得更久了？</p>
+          <div class="byline">特稿 <span>/</span> 沈一苇 &nbsp;·&nbsp; 摄影 <span>/</span> 顾长青</div>
+          <div class="barcode"></div>
+        </div>
+        <div class="cover-lines">
+          <div class="cl-t">编辑手记</div>
+          <p>我们走访了四座城市的 61 家独立咖啡馆，记录下它们的账本、菜单与凌晨四点的烘豆机。</p>
+          <p>数据页见本期 P.38「数字之间」。</p>
+        </div>
+      </div>
+      <div class="folio"><span>城市之间 · BETWEEN CITIES</span><span class="c">封面故事</span><span>定价 ¥48</span></div>
+    </div>
+  </section>
+
+  <!-- ② 目录 -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>目录 / CONTENTS</span><span>城市之间 · 第十二期</span><span class="r">2026 年 · 秋</span></div>
+      <div class="kicker">本期内容</div>
+      <h2 class="story-h">这一期里有什么</h2>
+      <div class="toc">
+        <div class="toc-row"><span class="sec">特稿</span><span class="t">小店时代</span><span class="dots"></span><span class="pg">24</span></div>
+        <div class="toc-row"><span class="sec">数字之间</span><span class="t">先活下来，再谈风格</span><span class="dots"></span><span class="pg">38</span></div>
+        <div class="toc-row"><span class="sec">账本</span><span class="t">一家咖啡馆的钱长什么样</span><span class="dots"></span><span class="pg">41</span></div>
+        <div class="toc-row"><span class="sec">对照</span><span class="t">连锁与小店，两种活法</span><span class="dots"></span><span class="pg">45</span></div>
+        <div class="toc-row"><span class="sec">对话</span><span class="t">慢工细活：访一位木匠师傅</span><span class="dots"></span><span class="pg">52</span></div>
+      </div>
+      <div class="folio"><span>城市之间 · 第十二期</span><span class="c">目录</span><span>P. 4</span></div>
+    </div>
+  </section>
+
+  <!-- ③ 章节页 -->
+  <section>
+    <div class="page divider">
+      <div class="sec-no">第一部分 · 特稿</div>
+      <div class="sec-title">凌晨四点，<br>烘豆机先醒</div>
+      <p class="sec-sub">在采访与账本之前，先看一个场景：一间小屋、一台小机器，和一笔让九张座位的小店活下去的算术。</p>
+      <div class="rule"></div>
+      <div class="folio" style="position:absolute;left:84px;right:84px;bottom:48px;"><span>城市之间 · 第十二期</span><span class="c">特稿</span><span>P. 24</span></div>
+    </div>
+  </section>
+
+  <!-- ④ 特稿页（双栏正文） -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>特稿 / FEATURE</span><span>小店时代</span><span class="r">P. 24</span></div>
+      <div class="kicker">封面故事 · 独立咖啡馆生存实录</div>
+      <h2 class="story-h">凌晨四点的烘豆机，<br>比任何商业计划书都诚实</h2>
+      <div class="story-cols">
+        <div>
+          <p class="dropcap">半间咖啡馆在成都玉林路开了七年，面积 34 平方米，座位九个。老板娘唐晓每晚打烊后自己烘第二天要用的豆子，她说这不是情怀，是算术：<b>请一位烘豆师傅，店就没了利润；自己烘，利润率能多出十一个百分点</b>。</p>
+          <p>这不是个例。我们走访的 61 家独立咖啡馆里，43 家由店主亲自担任至少两个岗位——烘豆、采购、记账、出品，常常是同一个人。</p>
+        </div>
+        <div>
+          <div class="pullquote">
+            <div class="q">「客人不是为咖啡因来的，是为『这家店还在』来的。」</div>
+            <div class="a">—— 唐晓，「半间」咖啡馆主理人</div>
+          </div>
+          <p style="margin-top:18px;">独立小店真正的护城河不在产品，而在<b>半径五百米内的熟人社会</b>：知道老客的口味，记得谁家孩子今年高考。这种关系无法被中央厨房复制，也是它们在租金上涨时仍能谈下续约的原因。</p>
+        </div>
+      </div>
+      <div class="folio"><span>城市之间 · 第十二期</span><span class="c">特稿</span><span>P. 24 — 25</span></div>
+    </div>
+  </section>
+
+  <!-- ⑤ 单栏正文 -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>论点 / THE ARGUMENT</span><span>小店时代</span><span class="r">P. 31</span></div>
+      <div class="kicker">小，为何赢得慢</div>
+      <h2 class="story-h" style="font-size:50px;">规模本来应该赢的，它赢的是另一样东西</h2>
+      <div class="single-col">
+        <p>连锁输掉，不是因为咖啡变难喝了，而是因为它们优化的那样东西——「在任何地方喝到同一杯」——不再稀缺。机场里就能买到那一杯。机场里买不到的，是<b>一个有人记得你名字的房间</b>，而小店恰好是唯一还在卖这个的生意。</p>
+        <p>但账也要算清，本期不打算回避：这个模式成立的前提，是店主自己的劳动足够便宜。样本里倒下的小店，几乎都倒在同一件事上——太早想雇人把自己从后厨里换出来。<b>小店只能赢得慢，否则就赢不了。</b></p>
+      </div>
+      <div class="folio"><span>城市之间 · 第十二期</span><span class="c">论点</span><span>P. 31</span></div>
+    </div>
+  </section>
+
+  <!-- ⑥ 数字页 -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>数字之间 / BY THE NUMBERS</span><span>独立咖啡馆样本 · N=61</span><span class="r">P. 38</span></div>
+      <div class="kicker">本期数据</div>
+      <h2 class="story-h" style="font-size:48px;">先活下来，再谈风格</h2>
+      <div class="nums">
+        <div class="cell">
+          <div class="n">5.8<em>年</em></div>
+          <div class="t">样本平均存活时长</div>
+          <div class="d">同期连锁单店平均为 3.1 年；存活超过 5 年的小店，七成拥有自有物业或长租约。</div>
+        </div>
+        <div class="cell">
+          <div class="n">41<em>%</em></div>
+          <div class="t">熟客贡献的营收占比</div>
+          <div class="d">到店 10 次以上的客人贡献了大头收入，复购间隔中位数为 6 天。</div>
+        </div>
+        <div class="cell">
+          <div class="n">2.4<em>人</em></div>
+          <div class="t">平均全职员工数</div>
+          <div class="d">含店主本人。人力是仅次于租金的第二大成本，也是弹性最大的那一项。</div>
+        </div>
+      </div>
+      <div class="ledger">
+        <div class="lh"><span>成本结构（占营收比）</span><span>较三年前</span></div>
+        <div class="lr"><span class="name">租金</span><span class="dots"></span><span class="val">24.6%</span><span class="chg">↑ 3.2 pt</span></div>
+        <div class="lr"><span class="name">人力</span><span class="dots"></span><span class="val">21.3%</span><span class="chg">↓ 1.8 pt</span></div>
+        <div class="lr"><span class="name">原料（豆、奶、糖）</span><span class="dots"></span><span class="val">18.9%</span><span class="chg">↑ 0.7 pt</span></div>
+        <div class="lr"><span class="name">水电与杂费</span><span class="dots"></span><span class="val">6.4%</span><span class="chg">基本持平</span></div>
+      </div>
+      <div class="folio"><span>城市之间 · 第十二期</span><span class="c">数字之间</span><span>P. 38</span></div>
+    </div>
+  </section>
+
+  <!-- ⑦ 表格页 -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>账本 / THE LEDGER</span><span>一家店 · 一整年</span><span class="r">P. 41</span></div>
+      <div class="kicker">「半间」咖啡馆 · 匿名化账目</div>
+      <h2 class="story-h" style="font-size:48px;">一家咖啡馆四年的账</h2>
+      <table class="mag">
+        <tr><th>科目（元）</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr>
+        <tr><td>营业收入</td><td>1,284,000</td><td>1,386,000</td><td>1,487,000</td><td class="hl">1,610,000</td></tr>
+        <tr><td>租金</td><td>351,000</td><td>368,000</td><td>386,000</td><td>396,000</td></tr>
+        <tr><td>人力（含店主）</td><td>360,000</td><td>349,000</td><td>344,000</td><td class="hl">343,000</td></tr>
+        <tr><td>原料</td><td>254,000</td><td>280,000</td><td>292,000</td><td>304,000</td></tr>
+        <tr class="total"><td>经营利润率</td><td>9.1%</td><td>11.8%</td><td>13.4%</td><td>15.2%</td></tr>
+      </table>
+      <p style="margin-top:26px;font-size:16.5px;line-height:1.75;color:var(--ink-soft);">经店主许可刊出，数字已取整并隐去可识别信息。人力一项按市场价计入店主本人的工资——这是多数小店悄悄省掉的一行。</p>
+      <div class="folio"><span>城市之间 · 第十二期</span><span class="c">账本</span><span>P. 41</span></div>
+    </div>
+  </section>
+
+  <!-- ⑧ 引用页 -->
+  <section>
+    <div class="page quote-page">
+      <p class="quote-text">「连锁店许诺的是<span class="hl">不出意外</span>；小店许诺的是，柜台后面站着一个<b>具体的人</b>。」</p>
+      <div class="quote-attr"><b>英格丽 · 哈尔沃森 博士</b> &nbsp;·&nbsp; 城市经济学者，本期受访者</div>
+      <div class="folio" style="position:absolute;left:84px;right:84px;bottom:48px;"><span>城市之间 · 第十二期</span><span class="c">对话</span><span>P. 52</span></div>
+    </div>
+  </section>
+
+  <!-- ⑨ 对比页 -->
+  <section>
+    <div class="page">
+      <div class="issue"><span>对照 / SIDE BY SIDE</span><span>卖咖啡的两种方式</span><span class="r">P. 45</span></div>
+      <div class="kicker">一组诚实的对照</div>
+      <h2 class="story-h" style="font-size:48px;">连锁，与街角小店</h2>
+      <div class="compare">
+        <div class="side">
+          <div class="when">连锁门店</div>
+          <div class="big">生于无处不在</div>
+          <div class="item"><span class="k">单店平均存活</span><span class="v">3.1 年</span></div>
+          <div class="item"><span class="k">单店员工数</span><span class="v">9.6 人</span></div>
+          <div class="item"><span class="k">熟客营收占比</span><span class="v">18%</span></div>
+          <div class="item"><span class="k">菜单年更新次数</span><span class="v">2 次</span></div>
+        </div>
+        <div class="side now">
+          <div class="when">独立小店</div>
+          <div class="big">生于此地</div>
+          <div class="item"><span class="k">单店平均存活</span><span class="v">5.8 年</span></div>
+          <div class="item"><span class="k">单店员工数</span><span class="v">2.4 人</span></div>
+          <div class="item"><span class="k">熟客营收占比</span><span class="v">41%</span></div>
+          <div class="item"><span class="k">菜单年更新次数</span><span class="v">11 次</span></div>
+        </div>
+      </div>
+      <div class="folio"><span>城市之间 · 第十二期</span><span class="c">对照</span><span>P. 45</span></div>
+    </div>
+  </section>
+
+  <!-- ⑩ 结尾页 -->
+  <section>
+    <div class="page closing">
+      <div class="fin">完 · 末页</div>
+      <div class="big">下一期：<br>夜市搬进了室内</div>
+      <p class="sub">谢谢你读到这里。如果本期写的那家店就在你家楼下，最好的书评，是明天早上走进去坐一会儿。</p>
+      <div class="colophon">
+        <div><div class="k">订阅</div><div class="v">betweencities.example</div></div>
+        <div><div class="k">来信</div><div class="v">letters@betweencities.example</div></div>
+        <div><div class="k">下一期</div><div class="v">2026 年冬 · 一月刊</div></div>
+      </div>
+      <div class="folio" style="position:absolute;left:84px;right:84px;bottom:48px;"><span>城市之间 · 第十二期</span><span class="c">末页</span><span>P. 64</span></div>
+    </div>
+  </section>
+
+</div>
+</div>
+<script src="vendor/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    width:1440, height:900, margin:0,
+    hash:true, controls:!new URLSearchParams(location.search).has('shot'), controlsTutorial:false,
+    progress:false, slideNumber:false, transition:'none',
+    backgroundTransition:'none'
+  });
+</script>
+</body>
+</html>
