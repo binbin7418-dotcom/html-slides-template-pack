@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>夜核 · 深色科技 — 星尘引擎推理平台技术分享</title>
+<link rel="stylesheet" href="vendor/reset.css">
+<link rel="stylesheet" href="vendor/reveal.css">
+<style>
+  /* ============ 夜核 / DARK TECH — 原创设计系统 ============ */
+  :root{
+    --bg:#0A0D12;
+    --panel:#10151D;
+    --panel-2:#0D1118;
+    --line:#223041;
+    --line-soft:#18222F;
+    --txt:#E8EDF4;
+    --soft:#A9B6C6;
+    --mute:#67788E;
+    --cy:#3EE6C4;         /* 薄荷青 */
+    --cy-dim:rgba(62,230,196,.12);
+    --amber:#FFB454;
+    --sans:"Noto Sans CJK SC","PingFang SC",sans-serif;
+    --mono:"DejaVu Sans Mono","SF Mono",ui-monospace,monospace;
+  }
+  html,body{background:var(--bg);}
+  .reveal-viewport{background:var(--bg);}
+  .reveal{background:var(--bg);font-family:var(--sans);color:var(--txt);font-size:27px;}
+  .reveal .slides{text-align:left;}
+  .reveal .slides section{height:100%;padding:0;background-color:var(--bg);
+    background-image:
+      linear-gradient(rgba(62,230,196,.045) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(62,230,196,.045) 1px,transparent 1px);
+    background-size:72px 72px;background-position:center;}
+  .reveal h1,.reveal h2,.reveal h3{font-family:var(--sans);color:var(--txt);text-transform:none;margin:0;}
+  ::selection{background:var(--cy);color:#06231B;}
+
+  .page{height:100%;box-sizing:border-box;padding:54px 84px 46px;display:flex;flex-direction:column;position:relative;}
+
+  /* 顶栏 / 底栏 */
+  .topbar{display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:13px;letter-spacing:.18em;color:var(--mute);
+    border-bottom:1px solid var(--line-soft);padding-bottom:16px;}
+  .topbar .status{color:var(--cy);}
+  .topbar .status::before{content:"●";margin-right:8px;font-size:11px;}
+  .topbar .deck{color:var(--soft);}
+  .botbar{margin-top:auto;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;color:var(--mute);
+    border-top:1px solid var(--line-soft);padding-top:14px;}
+  .botbar .pg b{color:var(--cy);font-weight:400;}
+
+  .tag{display:inline-block;font-family:var(--mono);font-size:13px;letter-spacing:.3em;color:var(--cy);
+    border:1px solid var(--line);background:var(--cy-dim);padding:7px 14px 6px;border-radius:3px;}
+  .h2{font-size:54px;font-weight:700;line-height:1.25;}
+  .h2 .cy{color:var(--cy);}
+  .lead{margin-top:18px;font-size:20.5px;line-height:1.7;color:var(--soft);font-weight:300;max-width:1000px;}
+  .lead b{color:var(--txt);font-weight:500;}
+
+  /* ---------- 封面 ---------- */
+  .cover h1{font-size:124px;font-weight:700;line-height:1.12;letter-spacing:.04em;margin-top:34px;}
+  .cover h1 .glow{color:var(--cy);text-shadow:0 0 34px rgba(62,230,196,.45);}
+  .cover .sub{margin-top:30px;font-size:23px;line-height:1.8;color:var(--soft);font-weight:300;max-width:920px;}
+  .cover .sub b{color:var(--txt);font-weight:500;}
+  .chips{margin-top:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .chip{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px 24px 18px;}
+  .chip .k{font-family:var(--mono);font-size:12px;letter-spacing:.26em;color:var(--mute);margin-bottom:12px;}
+  .chip .v{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1;}
+  .chip .v small{font-size:16px;color:var(--cy);font-weight:500;margin-left:5px;}
+
+  /* ---------- 目录 ---------- */
+  .agenda{margin-top:44px;display:flex;flex-direction:column;gap:16px;}
+  .ag-row{display:flex;align-items:center;gap:26px;background:var(--panel);border:1px solid var(--line);
+    border-radius:6px;padding:23px 28px;}
+  .ag-row .no{font-family:var(--mono);font-size:15px;letter-spacing:.2em;color:var(--cy);width:64px;flex:none;}
+  .ag-row .t{font-size:25px;font-weight:600;}
+  .ag-row .d{margin-left:auto;font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--mute);}
+
+  /* ---------- 章节页 ---------- */
+  .divider{justify-content:center;}
+  .divider .bignum{font-family:var(--mono);font-size:200px;font-weight:700;line-height:1;color:var(--panel);-webkit-text-stroke:2px var(--line);}
+  .divider .sec-title{font-size:64px;font-weight:700;line-height:1.2;margin-top:12px;}
+  .divider .sec-title .cy{color:var(--cy);}
+  .divider .sec-sub{margin-top:20px;font-size:20.5px;line-height:1.7;color:var(--soft);font-weight:300;max-width:820px;}
+
+  /* ---------- 单栏内容 ---------- */
+  .narrative{margin-top:38px;max-width:1000px;}
+  .narrative p{font-size:21.5px;line-height:1.8;color:var(--soft);font-weight:300;margin:0 0 22px;}
+  .narrative p b{color:var(--txt);font-weight:500;}
+  .pipeline{margin-top:30px;display:flex;align-items:center;gap:14px;
+    font-family:var(--mono);font-size:15px;letter-spacing:.12em;color:var(--soft);}
+  .pipeline .node{border:1px solid var(--line);background:var(--panel);border-radius:4px;padding:10px 18px;}
+  .pipeline .node.hot{border-color:var(--cy);color:var(--cy);}
+  .pipeline .arr{color:var(--mute);}
+
+  /* ---------- 双栏内容 ---------- */
+  .twocol{margin-top:42px;display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .panel{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);
+    border-radius:8px;padding:30px 30px 26px;position:relative;overflow:hidden;}
+  .panel::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+    background:linear-gradient(90deg,var(--cy),transparent 70%);}
+  .panel .no{font-family:var(--mono);font-size:13px;letter-spacing:.24em;color:var(--cy);margin-bottom:16px;}
+  .panel h3{font-size:26px;font-weight:600;line-height:1.4;margin-bottom:14px;}
+  .panel p{font-size:18.5px;line-height:1.75;color:var(--soft);font-weight:300;margin:0 0 14px;}
+  .panel p b{color:var(--txt);font-weight:500;}
+  .panel ul{list-style:none;margin:0;padding:0;}
+  .panel ul li{font-size:18px;line-height:1.6;color:var(--soft);font-weight:300;padding:9px 0 9px 26px;position:relative;border-top:1px solid var(--line-soft);}
+  .panel ul li::before{content:"▸";position:absolute;left:2px;color:var(--cy);}
+  .panel ul li b{color:var(--txt);font-weight:500;}
+
+  /* ---------- 数据页 ---------- */
+  .tiles{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px 22px 16px;}
+  .tile .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;color:var(--mute);margin-bottom:10px;}
+  .tile .v{font-size:36px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1;}
+  .tile .v small{font-size:15px;color:var(--cy);font-weight:500;margin-left:4px;}
+  .tile .d{margin-top:8px;font-size:13.5px;color:var(--mute);}
+  .tile .d .up{color:var(--cy);}
+  .chart-panel{margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:26px 30px 14px;}
+  .chart-panel .cap{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+  .chart-panel .cap .t{font-size:18px;font-weight:500;}
+  .chart-panel .cap .u{font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--mute);}
+  .src{margin-top:12px;font-size:13.5px;color:var(--mute);font-family:var(--mono);letter-spacing:.05em;}
+
+  /* ---------- 表格页 ---------- */
+  table.tech{margin-top:42px;width:100%;border-collapse:collapse;font-size:19.5px;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  table.tech th{font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;color:var(--mute);font-weight:400;
+    text-align:right;padding:18px 22px 14px;border-bottom:1px solid var(--line);background:var(--panel-2);}
+  table.tech th:first-child{text-align:left;}
+  table.tech td{padding:19px 22px 17px;border-bottom:1px solid var(--line-soft);text-align:right;
+    font-variant-numeric:tabular-nums;color:var(--soft);}
+  table.tech td:first-child{text-align:left;color:var(--txt);font-weight:500;font-family:var(--mono);font-size:17.5px;}
+  table.tech td.hl{color:var(--cy);font-weight:600;}
+  table.tech tr:last-child td{border-bottom:none;}
+
+  /* ---------- 引用页 ---------- */
+  .quote-page{justify-content:center;}
+  .quote-text{font-size:50px;line-height:1.5;font-weight:300;max-width:1140px;}
+  .quote-text b{font-weight:600;color:var(--cy);}
+  .quote-attr{margin-top:44px;font-family:var(--mono);font-size:14px;letter-spacing:.18em;color:var(--mute);}
+  .quote-attr b{color:var(--soft);font-weight:400;}
+
+  /* ---------- 对比页 ---------- */
+  .compare{margin-top:42px;display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .compare .side{background:var(--panel-2);border:1px solid var(--line-soft);border-radius:8px;padding:28px 30px 12px;}
+  .compare .side.now{background:var(--panel);border-color:var(--line);}
+  .compare .when{font-family:var(--mono);font-size:12.5px;letter-spacing:.22em;color:var(--mute);margin-bottom:8px;}
+  .compare .side.now .when{color:var(--cy);}
+  .compare .big{font-size:33px;font-weight:700;margin-bottom:20px;}
+  .compare .item{display:flex;justify-content:space-between;align-items:baseline;gap:18px;
+    padding:13px 0;border-top:1px solid var(--line-soft);}
+  .compare .item .k{font-size:17.5px;color:var(--soft);font-weight:300;}
+  .compare .item .v{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .compare .side.now .item .v{color:var(--cy);}
+
+  /* ---------- 结尾页 ---------- */
+  .closing{justify-content:center;}
+  .closing .big{font-size:96px;font-weight:700;line-height:1.14;letter-spacing:.02em;}
+  .closing .big .glow{color:var(--cy);text-shadow:0 0 34px rgba(62,230,196,.45);}
+  .closing .sub{margin-top:26px;font-size:21.5px;line-height:1.7;color:var(--soft);font-weight:300;max-width:840px;}
+  .closing .links{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .closing .link{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px 24px 16px;}
+  .closing .link .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;color:var(--mute);margin-bottom:9px;}
+  .closing .link .v{font-size:18px;font-weight:500;font-family:var(--mono);}
+
+  /* ---------- 打印 / PDF 导出 ---------- */
+  @media print{
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    html,body{background:var(--bg);}
+    .reveal .slides section{background-color:var(--bg) !important;}
+  }
+
+  /* Print-PDF sizing: every exported page is exactly one slide tall */
+  html.print-pdf .reveal .slides .pdf-page{height:900px !important;}
+  html.print-pdf .reveal .slides section{height:900px !important;}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <!-- ① 封面 -->
+  <section>
+    <div class="page cover">
+      <div class="topbar">
+        <span class="status">SYSTEMS ONLINE</span>
+        <span class="deck">STARDUST ENGINE · TECH TALK 2026.11</span>
+        <span>BUILD 4.2.0</span>
+      </div>
+      <div style="margin-top:88px;">
+        <span class="tag">INFERENCE PLATFORM</span>
+        <h1>星尘引擎<br>让推理<span class="glow">快三倍</span></h1>
+        <p class="sub">为大模型服务而生的推理平台：<b>动态批处理、显存碎片整理与前缀缓存</b>三件套，
+        在不换硬件的前提下，把单卡吞吐推高到原来的 3.1 倍，首字延迟压进 90 毫秒。</p>
+      </div>
+      <div class="chips">
+        <div class="chip"><div class="k">吞吐 THROUGHPUT</div><div class="v">8,420<small>tok/s</small></div></div>
+        <div class="chip"><div class="k">首字延迟 TTFT P50</div><div class="v">86<small>ms</small></div></div>
+        <div class="chip"><div class="k">可用性 SLA</div><div class="v">99.97<small>%</small></div></div>
+        <div class="chip"><div class="k">线上集群</div><div class="v">1,280<small>GPUs</small></div></div>
+      </div>
+      <div class="botbar" style="margin-top:26px;"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>01</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ② 目录 -->
+  <section>
+    <div class="page">
+      <div class="topbar">
+        <span class="status">SYSTEMS ONLINE</span>
+        <span class="deck">STARDUST ENGINE · 本次分享</span>
+        <span>00 — INDEX</span>
+      </div>
+      <div style="margin-top:48px;">
+        <h2 class="h2">这次分享<span class="cy">讲什么</span></h2>
+      </div>
+      <div class="agenda">
+        <div class="ag-row"><span class="no">01</span><span class="t">问题：GPU 大部分时间在等待</span><span class="d">约 8 分钟</span></div>
+        <div class="ag-row"><span class="no">02</span><span class="t">消灭等待的三个机制</span><span class="d">约 12 分钟</span></div>
+        <div class="ag-row"><span class="no">03</span><span class="t">上线六个月的线上数据</span><span class="d">约 8 分钟</span></div>
+        <div class="ag-row"><span class="no">04</span><span class="t">不会再做第二次的事</span><span class="d">约 5 分钟</span></div>
+      </div>
+      <div class="botbar"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>02</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ③ 章节页 -->
+  <section>
+    <div class="page divider">
+      <div class="bignum">01</div>
+      <div class="sec-title">问题不在计算，<br>在<span class="cy">等待</span></div>
+      <p class="sec-sub">给一块满载的 GPU 做性能剖析是件让人谦卑的事：大部分时间里，大部分芯片是闲着的。第一部分先看时间到底花在哪。</p>
+      <div class="botbar" style="position:absolute;left:84px;right:84px;bottom:46px;"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>03</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ④ 单栏内容 -->
+  <section>
+    <div class="page">
+      <div class="topbar">
+        <span class="status">SYSTEMS ONLINE</span>
+        <span class="deck">STARDUST ENGINE · 问题定位</span>
+        <span>01 — WHY</span>
+      </div>
+      <div style="margin-top:48px;">
+        <h2 class="h2">硬件很快，<span class="cy">管道很慢</span></h2>
+      </div>
+      <div class="narrative">
+        <p>一块现代 GPU 完成一次前向计算只要几毫秒，用户却要等上几秒。差距不在计算里，在计算之间：请求在队列里等批次凑齐，显存为新会话反复腾挪，相同的提示词前缀在每一次调用里从头重算。</p>
+        <p>动代码之前，我们先把这三件事量了出来。<b>高峰时段，排队、碎片与重复预填充占了端到端延迟的 71%</b>——模型从来不是瓶颈，管道才是。</p>
+      </div>
+      <div class="pipeline">
+        <span class="node">REQUEST</span><span class="arr">──▶</span>
+        <span class="node">SCHEDULER</span><span class="arr">──▶</span>
+        <span class="node hot">INFERENCE CORE</span><span class="arr">──▶</span>
+        <span class="node">STREAM OUT</span>
+        <span style="margin-left:auto;color:var(--mute);">改造后平均排队等待 &lt; 5 ms</span>
+      </div>
+      <div class="botbar"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>04</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑤ 双栏内容 -->
+  <section>
+    <div class="page">
+      <div class="topbar">
+        <span class="status">SYSTEMS ONLINE</span>
+        <span class="deck">STARDUST ENGINE · 核心机制</span>
+        <span>02 — HOW</span>
+      </div>
+      <div style="margin-top:48px;">
+        <h2 class="h2">三个机制里的<span class="cy">前两个</span></h2>
+        <p class="lead">第三个机制——前缀缓存复用——放在附录里单独展开。</p>
+      </div>
+      <div class="twocol">
+        <div class="panel">
+          <div class="no">MECH / 01</div>
+          <h3>动态批处理</h3>
+          <p>请求到达即入队，按 token 预算而非条数拼批，长短请求混编，每个 token 步都可进可出。</p>
+          <ul>
+            <li>GPU 利用率从 41% 提升到 <b>78%</b></li>
+            <li>长请求不再堵住短请求的路</li>
+            <li>尾延迟不升反降</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <div class="no">MECH / 02</div>
+          <h3>分页显存管理</h3>
+          <p>KV 缓存按页分配、按需映射，像给注意力机制做了一套虚拟内存。</p>
+          <ul>
+            <li>碎片率从 23% 降到 <b>2% 以下</b></li>
+            <li>同一张卡多装下约三分之一并发会话</li>
+            <li>不再按请求预估长度抢占显存</li>
+          </ul>
+        </div>
+      </div>
+      <div class="botbar"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>05</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑥ 数据页 -->
+  <section>
+    <div class="page">
+      <div class="topbar">
+        <span class="status">SYSTEMS ONLINE</span>
+        <span class="deck">STARDUST ENGINE · 线上数据</span>
+        <span>03 — METRICS</span>
+      </div>
+      <div style="margin-top:48px;">
+        <h2 class="h2">上线六个月，<span class="cy">曲线自己说话</span></h2>
+      </div>
+      <div class="tiles">
+        <div class="tile"><div class="k">日均请求</div><div class="v">2.6<small>亿</small></div><div class="d"><span class="up">▲ 212%</span> 较上线首月</div></div>
+        <div class="tile"><div class="k">单卡吞吐提升</div><div class="v">3.1<small>×</small></div><div class="d">同型号 GPU · 同精度</div></div>
+        <div class="tile"><div class="k">P99 延迟</div><div class="v">412<small>ms</small></div><div class="d"><span class="up">▼ 58%</span> 较旧调度器</div></div>
+        <div class="tile"><div class="k">月度故障停时</div><div class="v">13<small>min</small></div><div class="d">含 2 次主动演练切流</div></div>
+      </div>
+      <div class="chart-panel">
+        <div class="cap"><span class="t">集群日吞吐量（十亿 token / 日）</span><span class="u">2026.05 — 2026.11</span></div>
+        <svg viewBox="0 0 1180 300" width="100%" height="300" role="img" aria-label="集群日吞吐量折线图">
+          <defs>
+            <linearGradient id="fillg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3EE6C4" stop-opacity=".28"/>
+              <stop offset="100%" stop-color="#3EE6C4" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g stroke="#18222F" stroke-width="1">
+            <line x1="70" y1="50" x2="1140" y2="50"/><line x1="70" y1="120" x2="1140" y2="120"/>
+            <line x1="70" y1="190" x2="1140" y2="190"/><line x1="70" y1="260" x2="1140" y2="260"/>
+          </g>
+          <g font-size="12.5" fill="#67788E" font-family="DejaVu Sans Mono">
+            <text x="30" y="55">30</text><text x="30" y="125">20</text>
+            <text x="30" y="195">10</text><text x="38" y="265">0</text>
+          </g>
+          <path d="M110,231 L280,212 L450,193 L620,167 L790,130 L960,91 L1110,61 L1110,260 L110,260 Z" fill="url(#fillg)"/>
+          <path d="M110,231 L280,212 L450,193 L620,167 L790,130 L960,91 L1110,61" fill="none" stroke="#3EE6C4" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+          <g fill="#0A0D12" stroke="#3EE6C4" stroke-width="2.5">
+            <circle cx="110" cy="231" r="5"/><circle cx="280" cy="212" r="5"/><circle cx="450" cy="193" r="5"/>
+            <circle cx="620" cy="167" r="5"/><circle cx="790" cy="130" r="5"/><circle cx="960" cy="91" r="5"/>
+            <circle cx="1110" cy="61" r="6"/>
+          </g>
+          <g font-size="15" font-weight="600" fill="#E8EDF4" font-family="Noto Sans CJK SC" text-anchor="middle">
+            <text x="110" y="212">4.2</text><text x="280" y="193">6.8</text><text x="450" y="174">9.5</text>
+            <text x="620" y="148">13.2</text><text x="790" y="111">18.6</text><text x="960" y="72">24.1</text>
+            <text x="1096" y="42" fill="#3EE6C4">28.4</text>
+          </g>
+          <g font-size="13" fill="#67788E" font-family="DejaVu Sans Mono" text-anchor="middle">
+            <text x="110" y="288">MAY</text><text x="280" y="288">JUN</text><text x="450" y="288">JUL</text>
+            <text x="620" y="288">AUG</text><text x="790" y="288">SEP</text><text x="960" y="288">OCT</text>
+            <text x="1110" y="288">NOV</text>
+          </g>
+        </svg>
+        <div class="src">SOURCE: PROD TELEMETRY · 滚动 7 日均值 · 统计口径含全部在线集群</div>
+      </div>
+      <div class="botbar"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>06</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑦ 表格页 -->
+  <section>
+    <div class="page">
+      <div class="topbar">
+        <span class="status">SYSTEMS ONLINE</span>
+        <span class="deck">STARDUST ENGINE · 基准测试</span>
+        <span>03 — METRICS</span>
+      </div>
+      <div style="margin-top:48px;">
+        <h2 class="h2">基准数据，<span class="cy">同一套硬件</span></h2>
+        <p class="lead">单张 H 级 GPU、FP16、2,048 token 提示词。基线为上线前一周的实测值。</p>
+      </div>
+      <table class="tech">
+        <tr><th>负载</th><th>吞吐</th><th>首字延迟 P50</th><th>P99 延迟</th><th>较基线</th></tr>
+        <tr><td>chat-7b</td><td>8,420 tok/s</td><td>86 ms</td><td>412 ms</td><td class="hl">3.1x</td></tr>
+        <tr><td>chat-32b</td><td>3,150 tok/s</td><td>121 ms</td><td>690 ms</td><td class="hl">2.7x</td></tr>
+        <tr><td>rag-32b（长上下文）</td><td>2,480 tok/s</td><td>148 ms</td><td>905 ms</td><td class="hl">2.4x</td></tr>
+        <tr><td>batch-summarise-7b</td><td>11,900 tok/s</td><td>—</td><td>—</td><td class="hl">3.6x</td></tr>
+      </table>
+      <p class="src" style="margin-top:18px;">完整方法说明与原始跑分见附录 · 可用公开基准工具复现</p>
+      <div class="botbar"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>07</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑧ 引用页 -->
+  <section>
+    <div class="page quote-page">
+      <p class="quote-text">「我们停掉了新 GPU 的采购预算。容量一直都在，只是<b>堵在队列里</b>。」</p>
+      <div class="quote-attr"><b>普里娅 · 奈尔</b> · 平台负责人，内部复盘，2026 年 10 月</div>
+      <div class="botbar" style="position:absolute;left:84px;right:84px;bottom:46px;"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>08</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑨ 对比页 -->
+  <section>
+    <div class="page">
+      <div class="topbar">
+        <span class="status">SYSTEMS ONLINE</span>
+        <span class="deck">STARDUST ENGINE · 前后对照</span>
+        <span>03 — METRICS</span>
+      </div>
+      <div style="margin-top:48px;">
+        <h2 class="h2">旧调度器 <span class="cy">vs.</span> 星尘引擎</h2>
+      </div>
+      <div class="compare">
+        <div class="side">
+          <div class="when">LEGACY · 2025</div>
+          <div class="big">静态批次，静态显存</div>
+          <div class="item"><span class="k">GPU 利用率</span><span class="v">41%</span></div>
+          <div class="item"><span class="k">显存碎片率</span><span class="v">23%</span></div>
+          <div class="item"><span class="k">首字延迟 P50</span><span class="v">310 ms</span></div>
+          <div class="item"><span class="k">单卡吞吐</span><span class="v">2,700 tok/s</span></div>
+        </div>
+        <div class="side now">
+          <div class="when">STARDUST · 2026</div>
+          <div class="big">动态、分页、带缓存</div>
+          <div class="item"><span class="k">GPU 利用率</span><span class="v">78%</span></div>
+          <div class="item"><span class="k">显存碎片率</span><span class="v">&lt; 2%</span></div>
+          <div class="item"><span class="k">首字延迟 P50</span><span class="v">86 ms</span></div>
+          <div class="item"><span class="k">单卡吞吐</span><span class="v">8,420 tok/s</span></div>
+        </div>
+      </div>
+      <div class="botbar"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>09</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑩ 结尾页 -->
+  <section>
+    <div class="page closing">
+      <span class="tag" style="align-self:flex-start;">EOF · QUESTIONS</span>
+      <div class="big" style="margin-top:32px;">机制可以抄，<br><span class="glow">坑请绕开。</span></div>
+      <p class="sub">这次分享里的东西全部在线上跑着，而且大部分刻意做得很「无聊」。附录里是故障模式清单——建议先看那部分。</p>
+      <div class="links">
+        <div class="link"><div class="k">代码与基准工具</div><div class="v">stardust.example/repo</div></div>
+        <div class="link"><div class="k">附录</div><div class="v">stardust.example/appendix</div></div>
+        <div class="link"><div class="k">团队</div><div class="v">infra@stardust.example</div></div>
+      </div>
+      <div class="botbar" style="position:absolute;left:84px;right:84px;bottom:46px;"><span>星尘引擎团队 · 基础设施组</span><span class="pg"><b>10</b> / 10</span></div>
+    </div>
+  </section>
+
+</div>
+</div>
+<script src="vendor/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    width:1440, height:900, margin:0,
+    hash:true, controls:!new URLSearchParams(location.search).has('shot'), controlsTutorial:false,
+    progress:false, slideNumber:false, transition:'none',
+    backgroundTransition:'none'
+  });
+</script>
+</body>
+</html>
