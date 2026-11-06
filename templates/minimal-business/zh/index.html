@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>素白 · 极简商务 — 云杉科技 2026 客户成功年度复盘</title>
+<link rel="stylesheet" href="vendor/reset.css">
+<link rel="stylesheet" href="vendor/reveal.css">
+<style>
+  /* ============ 素白 / MINIMAL BUSINESS — 原创设计系统 ============ */
+  :root{
+    --paper:#FBFBF9;
+    --ink:#1B1E21;
+    --ink-soft:#3E4348;
+    --mute:#8A867E;
+    --line:#E4E1DA;
+    --accent:#0E5E52;      /* 深青 */
+    --accent-soft:#E7EFED;
+    --sans:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  html,body{background:var(--paper);}
+  .reveal-viewport{background:var(--paper);}
+  .reveal{font-family:var(--sans);color:var(--ink);font-size:28px;}
+  .reveal .slides{text-align:left;}
+  .reveal .slides section{height:100%;padding:0;}
+  .reveal h1,.reveal h2,.reveal h3{font-family:var(--sans);color:var(--ink);text-transform:none;margin:0;}
+  ::selection{background:var(--accent);color:#fff;}
+
+  .page{height:100%;box-sizing:border-box;padding:64px 88px 56px;display:flex;flex-direction:column;}
+
+  /* 页眉 / 页脚 */
+  .masthead{display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .masthead .brand{font-size:15px;letter-spacing:.42em;color:var(--ink);font-weight:500;}
+  .masthead .brand b{color:var(--accent);font-weight:700;}
+  .masthead .doc{font-size:13px;letter-spacing:.28em;color:var(--mute);}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;
+    border-top:1px solid var(--line);padding-top:16px;
+    font-size:13px;letter-spacing:.22em;color:var(--mute);}
+  .foot .pg{font-variant-numeric:tabular-nums;letter-spacing:.1em;}
+  .foot .pg b{color:var(--ink);font-weight:500;}
+
+  .eyebrow{font-size:14px;letter-spacing:.5em;color:var(--accent);font-weight:500;margin-bottom:30px;}
+  .eyebrow::before{content:"";display:inline-block;width:34px;height:1px;background:var(--accent);
+    vertical-align:middle;margin-right:16px;}
+  .h2{font-size:56px;font-weight:700;line-height:1.25;letter-spacing:.01em;}
+  .h2 .accent{color:var(--accent);}
+  .lead{margin-top:20px;font-size:21px;line-height:1.7;color:var(--ink-soft);font-weight:300;max-width:980px;}
+
+  /* ---------- 封面 ---------- */
+  .cover .big{font-size:118px;line-height:1.14;font-weight:700;letter-spacing:.015em;margin:26px 0 0;}
+  .cover .big .thin{font-weight:300;color:var(--ink-soft);}
+  .cover .sub{margin-top:38px;font-size:24px;line-height:1.75;color:var(--ink-soft);font-weight:300;max-width:900px;}
+  .cover .meta{margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;
+    border-top:1px solid var(--line);padding-top:26px;}
+  .cover .meta .k{font-size:13px;letter-spacing:.3em;color:var(--mute);margin-bottom:10px;}
+  .cover .meta .v{font-size:20px;font-weight:500;}
+  .cover .rule{width:64px;height:3px;background:var(--accent);margin-top:44px;}
+
+  /* ---------- 目录 ---------- */
+  .agenda{margin-top:50px;border-top:1px solid var(--line);}
+  .ag-row{display:grid;grid-template-columns:110px 1fr auto;gap:36px;align-items:baseline;
+    padding:28px 0 26px;border-bottom:1px solid var(--line);}
+  .ag-row .no{font-size:30px;font-weight:300;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .ag-row .t{font-size:28px;font-weight:500;}
+  .ag-row .d{font-size:15px;color:var(--mute);letter-spacing:.18em;}
+
+  /* ---------- 章节页 ---------- */
+  .divider{justify-content:center;}
+  .divider .bignum{font-size:250px;font-weight:700;line-height:1;color:var(--accent-soft);}
+  .divider .sec-title{font-size:66px;font-weight:700;line-height:1.2;margin-top:-56px;}
+  .divider .sec-sub{margin-top:22px;font-size:21px;line-height:1.7;color:var(--ink-soft);font-weight:300;max-width:780px;}
+  .divider .rule{width:64px;height:3px;background:var(--accent);margin-top:38px;}
+
+  /* ---------- 内容页（单栏行式） ---------- */
+  .rows{margin-top:52px;border-top:1px solid var(--line);}
+  .row{display:grid;grid-template-columns:110px 340px 1fr;gap:36px;align-items:baseline;
+    padding:30px 0 28px;border-bottom:1px solid var(--line);}
+  .row .no{font-size:30px;font-weight:300;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .row .t{font-size:27px;font-weight:500;line-height:1.4;}
+  .row .d{font-size:19px;line-height:1.75;color:var(--ink-soft);font-weight:300;}
+  .row .d b{color:var(--ink);font-weight:500;}
+
+  /* ---------- 内容页（双栏） ---------- */
+  .twocol{margin-top:50px;display:grid;grid-template-columns:1fr 1fr;gap:76px;}
+  .twocol .col h3{font-size:27px;font-weight:600;line-height:1.4;margin-bottom:16px;}
+  .twocol .col h3 .accent{color:var(--accent);}
+  .twocol .col p{font-size:19.5px;line-height:1.78;color:var(--ink-soft);font-weight:300;margin:0 0 20px;}
+  .twocol .col p b{color:var(--ink);font-weight:500;}
+  .twocol .col .mini{border-top:1px solid var(--line);padding-top:18px;margin-top:26px;}
+  .twocol .col .mini .k{font-size:13px;letter-spacing:.3em;color:var(--mute);margin-bottom:8px;}
+  .twocol .col .mini .v{font-size:32px;font-weight:700;font-variant-numeric:tabular-nums;}
+  .twocol .col .mini .v small{font-size:17px;color:var(--accent);font-weight:500;}
+
+  /* ---------- 数据页 ---------- */
+  .data-wrap{margin-top:46px;display:grid;grid-template-columns:400px 1fr;gap:72px;flex:1;}
+  .kpi{border-top:1px solid var(--line);}
+  .kpi .item{padding:22px 0 20px;border-bottom:1px solid var(--line);}
+  .kpi .num{font-size:58px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;}
+  .kpi .num small{font-size:26px;font-weight:500;color:var(--accent);margin-left:4px;}
+  .kpi .lbl{margin-top:10px;font-size:16px;color:var(--ink-soft);line-height:1.55;}
+  .kpi .lbl .up{color:var(--accent);font-weight:500;}
+  .chart-box{display:flex;flex-direction:column;}
+  .chart-box .cap{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .chart-box .cap .t{font-size:19px;font-weight:500;}
+  .chart-box .cap .u{font-size:14px;color:var(--mute);letter-spacing:.14em;}
+  .note{margin-top:14px;font-size:15px;color:var(--mute);line-height:1.7;}
+
+  /* ---------- 表格页 ---------- */
+  table.metrics{margin-top:48px;width:100%;border-collapse:collapse;font-size:20px;}
+  table.metrics th{font-size:13.5px;letter-spacing:.24em;color:var(--mute);font-weight:600;text-align:right;
+    padding:0 18px 14px;border-bottom:2px solid var(--ink);}
+  table.metrics th:first-child{text-align:left;padding-left:0;}
+  table.metrics td{padding:21px 18px 19px;border-bottom:1px solid var(--line);text-align:right;
+    font-variant-numeric:tabular-nums;color:var(--ink-soft);}
+  table.metrics td:first-child{text-align:left;padding-left:0;color:var(--ink);font-weight:500;}
+  table.metrics td.hl{color:var(--accent);font-weight:600;}
+  table.metrics tr.total td{border-bottom:none;border-top:2px solid var(--ink);color:var(--ink);font-weight:600;}
+
+  /* ---------- 引用页 ---------- */
+  .quote-page{justify-content:center;}
+  .quote-mark{font-size:110px;line-height:.6;color:var(--accent);font-weight:700;font-family:Georgia,serif;}
+  .quote-text{margin-top:46px;font-size:46px;line-height:1.5;font-weight:300;max-width:1120px;}
+  .quote-text b{font-weight:600;}
+  .quote-attr{margin-top:46px;display:flex;align-items:baseline;gap:22px;}
+  .quote-attr .who{font-size:20px;font-weight:600;}
+  .quote-attr .role{font-size:17px;color:var(--mute);}
+
+  /* ---------- 对比页 ---------- */
+  .compare{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:2px solid var(--ink);}
+  .compare .side{padding:30px 40px 8px 0;}
+  .compare .side + .side{border-left:1px solid var(--line);padding-left:40px;padding-right:0;}
+  .compare .side .when{font-size:14px;letter-spacing:.3em;color:var(--mute);font-weight:600;margin-bottom:8px;}
+  .compare .side.now .when{color:var(--accent);}
+  .compare .side .big{font-size:40px;font-weight:700;margin-bottom:24px;}
+  .compare .item{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+    padding:15px 0;border-top:1px solid var(--line);}
+  .compare .item .k{font-size:18.5px;color:var(--ink-soft);font-weight:300;}
+  .compare .item .v{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .compare .side.now .item .v{color:var(--accent);}
+
+  /* ---------- 结尾页 ---------- */
+  .closing{justify-content:center;}
+  .closing .big{font-size:100px;font-weight:700;line-height:1.16;letter-spacing:.01em;}
+  .closing .big .thin{font-weight:300;color:var(--ink-soft);}
+  .closing .sub{margin-top:30px;font-size:22px;line-height:1.7;color:var(--ink-soft);font-weight:300;max-width:860px;}
+  .closing .contact{margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;
+    border-top:1px solid var(--line);padding-top:26px;}
+  .closing .contact .k{font-size:13px;letter-spacing:.3em;color:var(--mute);margin-bottom:10px;}
+  .closing .contact .v{font-size:19px;font-weight:500;}
+
+  /* ---------- 打印 / PDF 导出 ---------- */
+  @media print{
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    html,body{background:var(--paper);}
+  }
+
+  /* Print-PDF sizing: every exported page is exactly one slide tall */
+  html.print-pdf .reveal .slides .pdf-page{height:900px !important;}
+  html.print-pdf .reveal .slides section{height:900px !important;}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <!-- ① 封面 -->
+  <section>
+    <div class="page cover">
+      <div class="masthead">
+        <div class="brand">云杉科技 <b>·</b> CEDAR&nbsp;TECH</div>
+        <div class="doc">内部文件 / INTERNAL</div>
+      </div>
+      <div style="margin-top:104px;">
+        <div class="eyebrow">2026 年度复盘 · 客户成功部</div>
+        <h1 class="big">客户成功<br><span class="thin">年度复盘</span></h1>
+        <div class="rule"></div>
+        <p class="sub">续约率回到九成以上，靠的不是折扣，而是把交付做回基本面：<br>更早的风险预警、更短的响应时间、更诚实的季度回顾。</p>
+      </div>
+      <div class="meta">
+        <div><div class="k">汇报人</div><div class="v">林晚舟 · 客户成功总监</div></div>
+        <div><div class="k">汇报对象</div><div class="v">经营管理委员会</div></div>
+        <div><div class="k">日期</div><div class="v">2026 年 11 月 18 日</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 目录 -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">云杉科技 <b>·</b> CEDAR&nbsp;TECH</div>
+        <div class="doc">年度复盘 / 目录</div>
+      </div>
+      <div style="margin-top:56px;">
+        <div class="eyebrow">本次汇报</div>
+        <h2 class="h2">四件事，<span class="accent">一次说清</span></h2>
+      </div>
+      <div class="agenda">
+        <div class="ag-row"><div class="no">01</div><div class="t">今年变了什么</div><div class="d">第一部分</div></div>
+        <div class="ag-row"><div class="no">02</div><div class="t">数字，不加修饰</div><div class="d">第二部分</div></div>
+        <div class="ag-row"><div class="no">03</div><div class="t">还没做好的地方</div><div class="d">第三部分</div></div>
+        <div class="ag-row"><div class="no">04</div><div class="t">明年的承诺</div><div class="d">第四部分</div></div>
+      </div>
+      <div class="foot"><span>云杉科技 · 客户成功部</span><span class="pg"><b>02</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ③ 章节页 -->
+  <section>
+    <div class="page divider">
+      <div class="bignum">01</div>
+      <div class="sec-title">今年变了什么</div>
+      <p class="sec-sub">改变的只有三个日常动作。后面所有的数字，都能追溯到这三件事上。</p>
+      <div class="rule"></div>
+      <div class="foot" style="position:absolute;left:88px;right:88px;bottom:56px;"><span>云杉科技 · 客户成功部</span><span class="pg"><b>03</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ④ 内容页（单栏） -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">云杉科技 <b>·</b> CEDAR&nbsp;TECH</div>
+        <div class="doc">年度复盘 / 关键动作</div>
+      </div>
+      <div style="margin-top:56px;">
+        <h2 class="h2">今年做成的<span class="accent">三件事</span></h2>
+        <p class="lead">没有新口号。只有三个被反复执行、并且已经写进日常流程的动作。</p>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="no">01</div>
+          <div class="t">风险客户<br>提前 90 天预警</div>
+          <div class="d">把活跃度、工单情绪与合同节点合成一个健康度分数，低于 60 分自动进入红名单。<b>今年共提前介入 47 家</b>，其中 39 家最终续约。</div>
+        </div>
+        <div class="row">
+          <div class="no">02</div>
+          <div class="t">首次响应<br>压到 23 分钟</div>
+          <div class="d">取消三级转派，改为「谁接到、谁负责到底」。<b>中位首次响应从 4.1 小时降到 23 分钟</b>，夜间工单由值班制覆盖，不再等到次日。</div>
+        </div>
+        <div class="row">
+          <div class="no">03</div>
+          <div class="t">季度回顾<br>只讲三个数字</div>
+          <div class="d">每次 QBR 只呈现使用深度、价值达成与未解决问题三项，讲不完就删页。<b>客户参会决策人比例从 31% 升到 58%</b>。</div>
+        </div>
+      </div>
+      <div class="foot"><span>云杉科技 · 客户成功部</span><span class="pg"><b>04</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑤ 内容页（双栏） -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">云杉科技 <b>·</b> CEDAR&nbsp;TECH</div>
+        <div class="doc">年度复盘 / 未竟之处</div>
+      </div>
+      <div style="margin-top:56px;">
+        <h2 class="h2">还没做好的<span class="accent">两件事</span></h2>
+      </div>
+      <div class="twocol">
+        <div class="col">
+          <h3>新客户上线，<span class="accent">还是太慢</span></h3>
+          <p>新客户从签约到真正用起来，平均要 <b>26 天</b>；做得最好的四分之一只要 11 天。差距不在开发，而在排期——数据导入卡在客户 IT 的窗口上，我们一周才催一次。</p>
+          <p>明年起，每个新客户设一名上线负责人，催办节奏改为一周两次。</p>
+          <div class="mini"><div class="k">平均上线周期</div><div class="v">26<small> 天 · 目标 14 天</small></div></div>
+        </div>
+        <div class="col">
+          <h3>小客户，<span class="accent">感受到了沉默</span></h3>
+          <p>50 席以下的小客户，平时只有出故障时才听到我们的声音。他们的续约率比平均水平低 <b>11 个百分点</b>，离场访谈里反复出现同一个词：「安静」。</p>
+          <p>下季度起，一封轻量月度简报、一个共享答疑时段，不加人，只加节奏。</p>
+          <div class="mini"><div class="k">小客户续约率差距</div><div class="v">−11<small> 个百分点</small></div></div>
+        </div>
+      </div>
+      <div class="foot"><span>云杉科技 · 客户成功部</span><span class="pg"><b>05</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑥ 数据页 -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">云杉科技 <b>·</b> CEDAR&nbsp;TECH</div>
+        <div class="doc">年度复盘 / 数据总览</div>
+      </div>
+      <div style="margin-top:56px;">
+        <h2 class="h2">数字比去年<span class="accent">诚实</span>，也比去年好</h2>
+      </div>
+      <div class="data-wrap">
+        <div class="kpi">
+          <div class="item">
+            <div class="num">94.2<small>%</small></div>
+            <div class="lbl">客户续约率 <span class="up">↑ 6.8 个百分点</span><br>流失 11 家，其中 7 家为对方业务关停</div>
+          </div>
+          <div class="item">
+            <div class="num">112<small>%</small></div>
+            <div class="lbl">净收入留存（NRR）<span class="up">↑ 9 个百分点</span><br>增购主要来自数据治理与集成模块</div>
+          </div>
+          <div class="item" style="border-bottom:none;">
+            <div class="num">23<small>分钟</small></div>
+            <div class="lbl">工单中位首次响应 <span class="up">↓ 82%</span><br>去年同期为 4.1 小时</div>
+          </div>
+        </div>
+        <div class="chart-box">
+          <div class="cap"><span class="t">分季度净收入留存（NRR）</span><span class="u">单位：%</span></div>
+          <svg viewBox="0 0 660 400" width="100%" height="400" role="img" aria-label="分季度净收入留存柱状图">
+            <g stroke="#E4E1DA" stroke-width="1">
+              <line x1="60" y1="60"  x2="640" y2="60"/>
+              <line x1="60" y1="140" x2="640" y2="140"/>
+              <line x1="60" y1="220" x2="640" y2="220"/>
+              <line x1="60" y1="300" x2="640" y2="300"/>
+            </g>
+            <g font-size="13" fill="#8A867E" font-family="Noto Sans CJK SC">
+              <text x="18" y="65">120</text><text x="18" y="145">110</text>
+              <text x="18" y="225">100</text><text x="26" y="305">90</text>
+            </g>
+            <line x1="60" y1="220" x2="640" y2="220" stroke="#0E5E52" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <g fill="#1B1E21">
+              <rect x="105" y="196" width="72" height="104"/>
+              <rect x="245" y="172" width="72" height="128"/>
+              <rect x="385" y="148" width="72" height="152"/>
+            </g>
+            <rect x="525" y="124" width="72" height="176" fill="#0E5E52"/>
+            <g font-size="17" font-weight="600" font-family="Noto Sans CJK SC" fill="#1B1E21" text-anchor="middle">
+              <text x="141" y="182">103</text><text x="281" y="158">106</text>
+              <text x="421" y="134">109</text><text x="561" y="110" fill="#0E5E52">112</text>
+            </g>
+            <g font-size="15" fill="#8A867E" font-family="Noto Sans CJK SC" text-anchor="middle">
+              <text x="141" y="330">Q1</text><text x="281" y="330">Q2</text>
+              <text x="421" y="330">Q3</text><text x="561" y="330">Q4</text>
+            </g>
+          </svg>
+          <p class="note">口径说明：NRR 按已签约满 12 个月的客户群计算，不含当年新签客户；虚线为 100% 基准。数据来源：CRM 与财务对账后口径，2026 年 11 月导出。</p>
+        </div>
+      </div>
+      <div class="foot"><span>云杉科技 · 客户成功部</span><span class="pg"><b>06</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑦ 表格页 -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">云杉科技 <b>·</b> CEDAR&nbsp;TECH</div>
+        <div class="doc">年度复盘 / 记分牌</div>
+      </div>
+      <div style="margin-top:56px;">
+        <h2 class="h2">一张表，<span class="accent">看完四个季度</span></h2>
+        <p class="lead">四个指标，四个季度。明年一月的复盘，就按这张表验收。</p>
+      </div>
+      <table class="metrics">
+        <tr><th>指标</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>
+        <tr><td>客户续约率</td><td>88.4%</td><td>90.1%</td><td>92.6%</td><td class="hl">94.2%</td></tr>
+        <tr><td>净收入留存（NRR）</td><td>103%</td><td>106%</td><td>109%</td><td class="hl">112%</td></tr>
+        <tr><td>中位首次响应</td><td>3.6 小时</td><td>1.8 小时</td><td>47 分钟</td><td class="hl">23 分钟</td></tr>
+        <tr><td>升级到研发的工单数</td><td>64</td><td>51</td><td>38</td><td class="hl">29</td></tr>
+        <tr class="total"><td>红名单客户数（季末）</td><td>31</td><td>24</td><td>17</td><td>9</td></tr>
+      </table>
+      <p class="note">升级工单指首次响应后转交研发的工单数；红名单为健康度低于 60 分的客户，按季末时点统计。</p>
+      <div class="foot"><span>云杉科技 · 客户成功部</span><span class="pg"><b>07</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑧ 引用页 -->
+  <section>
+    <div class="page quote-page">
+      <div class="quote-mark">“</div>
+      <p class="quote-text">他们是第一个在第一次见面时，就把<b>没做好的地方</b>连数字一起摆出来的供应商。续约签字那天，我们只开了<b>十一分钟</b>的会。</p>
+      <div class="quote-attr">
+        <span class="who">玛尔塔 · 凯勒</span>
+        <span class="role">北门零售集团运营副总裁 · 客户（自 2022 年）</span>
+      </div>
+      <div class="foot" style="position:absolute;left:88px;right:88px;bottom:56px;"><span>云杉科技 · 客户成功部</span><span class="pg"><b>08</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑨ 对比页 -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">云杉科技 <b>·</b> CEDAR&nbsp;TECH</div>
+        <div class="doc">年度复盘 / 两年对照</div>
+      </div>
+      <div style="margin-top:56px;">
+        <h2 class="h2">去年靠人扛，<span class="accent">今年靠 routine</span></h2>
+      </div>
+      <div class="compare">
+        <div class="side">
+          <div class="when">去年 · 2025</div>
+          <div class="big">靠人扛</div>
+          <div class="item"><span class="k">客户续约率</span><span class="v">87.4%</span></div>
+          <div class="item"><span class="k">中位首次响应</span><span class="v">4.1 小时</span></div>
+          <div class="item"><span class="k">QBR 决策人到场率</span><span class="v">31%</span></div>
+          <div class="item"><span class="k">临期才被发现的风险客户</span><span class="v">19 家</span></div>
+        </div>
+        <div class="side now">
+          <div class="when">今年 · 2026</div>
+          <div class="big">靠流程</div>
+          <div class="item"><span class="k">客户续约率</span><span class="v">94.2%</span></div>
+          <div class="item"><span class="k">中位首次响应</span><span class="v">23 分钟</span></div>
+          <div class="item"><span class="k">QBR 决策人到场率</span><span class="v">58%</span></div>
+          <div class="item"><span class="k">临期才被发现的风险客户</span><span class="v">3 家</span></div>
+        </div>
+      </div>
+      <div class="foot"><span>云杉科技 · 客户成功部</span><span class="pg"><b>09</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- ⑩ 结尾页 -->
+  <section>
+    <div class="page closing">
+      <div class="eyebrow">谢谢</div>
+      <div class="big">明年，<br><span class="thin">把基本面再做一遍。</span></div>
+      <p class="sub">没有新计划要发布。三个习惯继续，两个缺口补上，明年一月按同一张记分牌复盘。</p>
+      <div class="contact">
+        <div><div class="k">问题与讨论</div><div class="v">林晚舟 · lin@cedartech.example</div></div>
+        <div><div class="k">完整数据包</div><div class="v">共享盘 · 客户成功 / 复盘 / 2026</div></div>
+        <div><div class="k">下次复盘</div><div class="v">2027 年 1 月 20 日</div></div>
+      </div>
+      <div class="foot" style="position:absolute;left:88px;right:88px;bottom:56px;"><span>云杉科技 · 客户成功部</span><span class="pg"><b>10</b> / 10</span></div>
+    </div>
+  </section>
+
+</div>
+</div>
+<script src="vendor/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    width:1440, height:900, margin:0,
+    hash:true, controls:!new URLSearchParams(location.search).has('shot'), controlsTutorial:false,
+    progress:false, slideNumber:false, transition:'none',
+    backgroundTransition:'none'
+  });
+</script>
+</body>
+</html>
