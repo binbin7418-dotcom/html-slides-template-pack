@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Business — Cedar Tech Customer Success Annual Review 2026</title>
+<link rel="stylesheet" href="vendor/reset.css">
+<link rel="stylesheet" href="vendor/reveal.css">
+<style>
+  /* ============ MINIMAL BUSINESS — original design system ============ */
+  :root{
+    --paper:#FBFBF9;
+    --ink:#1B1E21;
+    --ink-soft:#3E4348;
+    --mute:#8A867E;
+    --line:#E4E1DA;
+    --accent:#0E5E52;      /* deep teal — the only colour allowed */
+    --accent-soft:#E7EFED;
+    --sans:"Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  html,body{background:var(--paper);}
+  .reveal-viewport{background:var(--paper);}
+  .reveal{font-family:var(--sans);color:var(--ink);font-size:28px;}
+  .reveal .slides{text-align:left;}
+  .reveal .slides section{height:100%;padding:0;}
+  .reveal h1,.reveal h2,.reveal h3{font-family:var(--sans);color:var(--ink);text-transform:none;margin:0;}
+  ::selection{background:var(--accent);color:#fff;}
+
+  .page{height:100%;box-sizing:border-box;padding:64px 88px 56px;display:flex;flex-direction:column;}
+
+  /* Header / footer */
+  .masthead{display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .masthead .brand{font-size:15px;letter-spacing:.34em;color:var(--ink);font-weight:500;}
+  .masthead .brand b{color:var(--accent);font-weight:700;}
+  .masthead .doc{font-size:13px;letter-spacing:.24em;color:var(--mute);}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;
+    border-top:1px solid var(--line);padding-top:16px;
+    font-size:13px;letter-spacing:.18em;color:var(--mute);}
+  .foot .pg{font-variant-numeric:tabular-nums;letter-spacing:.08em;}
+  .foot .pg b{color:var(--ink);font-weight:500;}
+
+  .eyebrow{font-size:14px;letter-spacing:.42em;color:var(--accent);font-weight:600;margin-bottom:30px;}
+  .eyebrow::before{content:"";display:inline-block;width:34px;height:1px;background:var(--accent);
+    vertical-align:middle;margin-right:16px;}
+  .h2{font-size:54px;font-weight:700;line-height:1.18;letter-spacing:-.01em;}
+  .h2 .accent{color:var(--accent);}
+  .lead{margin-top:20px;font-size:21px;line-height:1.65;color:var(--ink-soft);font-weight:300;max-width:1000px;}
+
+  /* ---------- Cover ---------- */
+  .cover .big{font-size:108px;line-height:1.06;font-weight:700;letter-spacing:-.015em;margin:24px 0 0;}
+  .cover .big .thin{font-weight:300;color:var(--ink-soft);}
+  .cover .sub{margin-top:36px;font-size:24px;line-height:1.65;color:var(--ink-soft);font-weight:300;max-width:920px;}
+  .cover .meta{margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;
+    border-top:1px solid var(--line);padding-top:26px;}
+  .cover .meta .k{font-size:13px;letter-spacing:.26em;color:var(--mute);margin-bottom:10px;}
+  .cover .meta .v{font-size:20px;font-weight:500;}
+  .cover .rule{width:64px;height:3px;background:var(--accent);margin-top:42px;}
+
+  /* ---------- Agenda ---------- */
+  .agenda{margin-top:48px;border-top:1px solid var(--line);}
+  .ag-row{display:grid;grid-template-columns:110px 1fr auto;gap:36px;align-items:baseline;
+    padding:27px 0 25px;border-bottom:1px solid var(--line);}
+  .ag-row .no{font-size:30px;font-weight:300;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .ag-row .t{font-size:28px;font-weight:500;}
+  .ag-row .d{font-size:16px;color:var(--mute);letter-spacing:.06em;}
+
+  /* ---------- Section divider ---------- */
+  .divider{justify-content:center;}
+  .divider .bignum{font-size:250px;font-weight:700;line-height:1;color:var(--accent-soft);letter-spacing:-.02em;}
+  .divider .sec-title{font-size:64px;font-weight:700;line-height:1.15;margin-top:-58px;}
+  .divider .sec-sub{margin-top:22px;font-size:21px;line-height:1.6;color:var(--ink-soft);font-weight:300;max-width:760px;}
+  .divider .rule{width:64px;height:3px;background:var(--accent);margin-top:38px;}
+
+  /* ---------- Content: numbered rows (single column) ---------- */
+  .rows{margin-top:50px;border-top:1px solid var(--line);}
+  .row{display:grid;grid-template-columns:110px 330px 1fr;gap:36px;align-items:baseline;
+    padding:29px 0 27px;border-bottom:1px solid var(--line);}
+  .row .no{font-size:30px;font-weight:300;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .row .t{font-size:27px;font-weight:500;line-height:1.35;}
+  .row .d{font-size:19px;line-height:1.7;color:var(--ink-soft);font-weight:300;}
+  .row .d b{color:var(--ink);font-weight:500;}
+
+  /* ---------- Content: two columns ---------- */
+  .twocol{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:76px;}
+  .twocol .col h3{font-size:26px;font-weight:600;line-height:1.35;margin-bottom:16px;}
+  .twocol .col h3 .accent{color:var(--accent);}
+  .twocol .col p{font-size:19.5px;line-height:1.72;color:var(--ink-soft);font-weight:300;margin:0 0 20px;}
+  .twocol .col p b{color:var(--ink);font-weight:500;}
+  .twocol .col .mini{border-top:1px solid var(--line);padding-top:18px;margin-top:26px;}
+  .twocol .col .mini .k{font-size:13px;letter-spacing:.24em;color:var(--mute);margin-bottom:8px;}
+  .twocol .col .mini .v{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;}
+  .twocol .col .mini .v small{font-size:17px;color:var(--accent);font-weight:500;}
+
+  /* ---------- Data / chart ---------- */
+  .data-wrap{margin-top:44px;display:grid;grid-template-columns:400px 1fr;gap:72px;flex:1;}
+  .kpi{border-top:1px solid var(--line);}
+  .kpi .item{padding:22px 0 20px;border-bottom:1px solid var(--line);}
+  .kpi .num{font-size:58px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;}
+  .kpi .num small{font-size:26px;font-weight:500;color:var(--accent);margin-left:4px;}
+  .kpi .lbl{margin-top:10px;font-size:16px;color:var(--ink-soft);line-height:1.55;}
+  .kpi .lbl .up{color:var(--accent);font-weight:500;}
+  .chart-box{display:flex;flex-direction:column;}
+  .chart-box .cap{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .chart-box .cap .t{font-size:19px;font-weight:500;}
+  .chart-box .cap .u{font-size:14px;color:var(--mute);letter-spacing:.1em;}
+  .note{margin-top:14px;font-size:15px;color:var(--mute);line-height:1.65;}
+
+  /* ---------- Table ---------- */
+  table.metrics{margin-top:46px;width:100%;border-collapse:collapse;font-size:20px;}
+  table.metrics th{font-size:13.5px;letter-spacing:.2em;color:var(--mute);font-weight:600;text-align:right;
+    padding:0 18px 14px;border-bottom:2px solid var(--ink);}
+  table.metrics th:first-child{text-align:left;padding-left:0;}
+  table.metrics td{padding:21px 18px 19px;border-bottom:1px solid var(--line);text-align:right;
+    font-variant-numeric:tabular-nums;color:var(--ink-soft);}
+  table.metrics td:first-child{text-align:left;padding-left:0;color:var(--ink);font-weight:500;}
+  table.metrics td.hl{color:var(--accent);font-weight:600;}
+  table.metrics tr.total td{border-bottom:none;border-top:2px solid var(--ink);color:var(--ink);font-weight:600;}
+
+  /* ---------- Quote ---------- */
+  .quote-page{justify-content:center;}
+  .quote-mark{font-size:120px;line-height:.6;color:var(--accent);font-weight:700;}
+  .quote-text{margin-top:44px;font-size:47px;line-height:1.42;font-weight:300;letter-spacing:-.005em;max-width:1120px;}
+  .quote-text b{font-weight:600;}
+  .quote-attr{margin-top:44px;display:flex;align-items:baseline;gap:22px;}
+  .quote-attr .who{font-size:20px;font-weight:600;}
+  .quote-attr .role{font-size:17px;color:var(--mute);}
+
+  /* ---------- Comparison ---------- */
+  .compare{margin-top:46px;display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:2px solid var(--ink);}
+  .compare .side{padding:30px 40px 8px 0;}
+  .compare .side + .side{border-left:1px solid var(--line);padding-left:40px;padding-right:0;}
+  .compare .side .when{font-size:14px;letter-spacing:.26em;color:var(--mute);font-weight:600;margin-bottom:8px;}
+  .compare .side.now .when{color:var(--accent);}
+  .compare .side .big{font-size:40px;font-weight:700;margin-bottom:24px;}
+  .compare .item{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+    padding:15px 0;border-top:1px solid var(--line);}
+  .compare .item .k{font-size:18.5px;color:var(--ink-soft);font-weight:300;}
+  .compare .item .v{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .compare .side.now .item .v{color:var(--accent);}
+
+  /* ---------- Closing ---------- */
+  .closing{justify-content:center;}
+  .closing .big{font-size:96px;font-weight:700;letter-spacing:-.015em;line-height:1.08;}
+  .closing .big .thin{font-weight:300;color:var(--ink-soft);}
+  .closing .sub{margin-top:30px;font-size:22px;line-height:1.65;color:var(--ink-soft);font-weight:300;max-width:840px;}
+  .closing .contact{margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;
+    border-top:1px solid var(--line);padding-top:26px;}
+  .closing .contact .k{font-size:13px;letter-spacing:.26em;color:var(--mute);margin-bottom:10px;}
+  .closing .contact .v{font-size:19px;font-weight:500;}
+
+  /* ---------- Print / PDF export ---------- */
+  @media print{
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    html,body{background:var(--paper);}
+  }
+
+  /* Print-PDF sizing: every exported page is exactly one slide tall */
+  html.print-pdf .reveal .slides .pdf-page{height:900px !important;}
+  html.print-pdf .reveal .slides section{height:900px !important;}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <!-- 01 · Cover -->
+  <section>
+    <div class="page cover">
+      <div class="masthead">
+        <div class="brand">CEDAR&nbsp;TECH</div>
+        <div class="doc">INTERNAL / CONFIDENTIAL</div>
+      </div>
+      <div style="margin-top:96px;">
+        <div class="eyebrow">ANNUAL REVIEW 2026 · CUSTOMER SUCCESS</div>
+        <h1 class="big">Customer Success,<br><span class="thin">reviewed honestly.</span></h1>
+        <div class="rule"></div>
+        <p class="sub">Renewals climbed back above ninety percent — not because of discounts,
+        but because we fixed the basics: earlier risk signals, faster first responses,
+        and quarterly reviews that respect everyone's time.</p>
+      </div>
+      <div class="meta">
+        <div><div class="k">PRESENTED BY</div><div class="v">Elaine Lin · Director of CS</div></div>
+        <div><div class="k">AUDIENCE</div><div class="v">Executive Committee</div></div>
+        <div><div class="k">DATE</div><div class="v">November 18, 2026</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · Agenda -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">CEDAR&nbsp;TECH</div>
+        <div class="doc">ANNUAL REVIEW / AGENDA</div>
+      </div>
+      <div style="margin-top:54px;">
+        <div class="eyebrow">AGENDA</div>
+        <h2 class="h2">What this review <span class="accent">covers</span></h2>
+      </div>
+      <div class="agenda">
+        <div class="ag-row"><div class="no">01</div><div class="t">What changed this year</div><div class="d">SECTION ONE</div></div>
+        <div class="ag-row"><div class="no">02</div><div class="t">The numbers, without varnish</div><div class="d">SECTION TWO</div></div>
+        <div class="ag-row"><div class="no">03</div><div class="t">Where we still fall short</div><div class="d">SECTION THREE</div></div>
+        <div class="ag-row"><div class="no">04</div><div class="t">What we commit to next</div><div class="d">SECTION FOUR</div></div>
+      </div>
+      <div class="foot"><span>Cedar Tech · Customer Success</span><span class="pg"><b>02</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- 03 · Section divider -->
+  <section>
+    <div class="page divider">
+      <div class="bignum">01</div>
+      <div class="sec-title">What changed<br>this year</div>
+      <p class="sec-sub">Three operating habits changed — and every result in the next section traces back to one of them.</p>
+      <div class="rule"></div>
+      <div class="foot" style="position:absolute;left:88px;right:88px;bottom:56px;"><span>Cedar Tech · Customer Success</span><span class="pg"><b>03</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- 04 · Content — single column -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">CEDAR&nbsp;TECH</div>
+        <div class="doc">ANNUAL REVIEW / KEY MOVES</div>
+      </div>
+      <div style="margin-top:54px;">
+        <h2 class="h2">Three things that <span class="accent">worked</span></h2>
+        <p class="lead">No new slogans. Just three moves we repeated until they became routine.</p>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <div class="no">01</div>
+          <div class="t">Risk flagged 90 days earlier</div>
+          <div class="d">Usage, ticket sentiment and contract dates now feed one health score; accounts under 60 land on a red list automatically. <b>We intervened with 47 accounts this year — 39 renewed.</b></div>
+        </div>
+        <div class="row">
+          <div class="no">02</div>
+          <div class="t">First response in 23 minutes</div>
+          <div class="d">We killed the three-tier hand-off: whoever picks up a ticket owns it end to end. <b>Median first response fell from 4.1 hours to 23 minutes</b>, with a night rota covering the gaps.</div>
+        </div>
+        <div class="row">
+          <div class="no">03</div>
+          <div class="t">Reviews with three numbers</div>
+          <div class="d">Every QBR now shows exactly three things: depth of use, value delivered, open problems. If it doesn't fit, we cut slides. <b>Decision-maker attendance rose from 31% to 58%.</b></div>
+        </div>
+      </div>
+      <div class="foot"><span>Cedar Tech · Customer Success</span><span class="pg"><b>04</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- 05 · Content — two columns -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">CEDAR&nbsp;TECH</div>
+        <div class="doc">ANNUAL REVIEW / HONEST GAPS</div>
+      </div>
+      <div style="margin-top:54px;">
+        <h2 class="h2">Where we still <span class="accent">fall short</span></h2>
+      </div>
+      <div class="twocol">
+        <div class="col">
+          <h3>Onboarding takes <span class="accent">too long</span></h3>
+          <p>New accounts reach first value in <b>26 days on average</b>; our best quartile does it in 11. The gap is not engineering — it is scheduling. Data imports wait on customer IT windows we only chase once a week.</p>
+          <p>From January, onboarding gets a named owner per account and a twice-weekly chase rhythm.</p>
+          <div class="mini"><div class="k">TIME TO FIRST VALUE</div><div class="v">26<small> days · target 14</small></div></div>
+        </div>
+        <div class="col">
+          <h3>Small accounts feel <span class="accent">the silence</span></h3>
+          <p>Accounts under 50 seats hear from us mostly when something breaks. Their renewal rate is <b>11 points below</b> the book average, and exit interviews keep naming the same word: "quiet."</p>
+          <p>A lightweight monthly digest and a shared office-hours slot start next quarter — no new headcount, just cadence.</p>
+          <div class="mini"><div class="k">SMALL-ACCOUNT RENEWAL GAP</div><div class="v">−11<small> pts vs. average</small></div></div>
+        </div>
+      </div>
+      <div class="foot"><span>Cedar Tech · Customer Success</span><span class="pg"><b>05</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- 06 · Data / chart -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">CEDAR&nbsp;TECH</div>
+        <div class="doc">ANNUAL REVIEW / THE NUMBERS</div>
+      </div>
+      <div style="margin-top:54px;">
+        <h2 class="h2">Better numbers, <span class="accent">honestly counted</span></h2>
+      </div>
+      <div class="data-wrap">
+        <div class="kpi">
+          <div class="item">
+            <div class="num">94.2<small>%</small></div>
+            <div class="lbl">Gross renewal rate <span class="up">↑ 6.8 pts</span><br>11 accounts churned; 7 had shut down entirely</div>
+          </div>
+          <div class="item">
+            <div class="num">112<small>%</small></div>
+            <div class="lbl">Net revenue retention <span class="up">↑ 9 pts</span><br>Expansion led by data &amp; integration modules</div>
+          </div>
+          <div class="item" style="border-bottom:none;">
+            <div class="num">23<small>min</small></div>
+            <div class="lbl">Median first response <span class="up">↓ 82%</span><br>Down from 4.1 hours a year ago</div>
+          </div>
+        </div>
+        <div class="chart-box">
+          <div class="cap"><span class="t">Net revenue retention by quarter</span><span class="u">% OF STARTING REVENUE</span></div>
+          <svg viewBox="0 0 660 400" width="100%" height="400" role="img" aria-label="Bar chart of net revenue retention by quarter">
+            <g stroke="#E4E1DA" stroke-width="1">
+              <line x1="60" y1="60"  x2="640" y2="60"/>
+              <line x1="60" y1="140" x2="640" y2="140"/>
+              <line x1="60" y1="220" x2="640" y2="220"/>
+              <line x1="60" y1="300" x2="640" y2="300"/>
+            </g>
+            <g font-size="13" fill="#8A867E" font-family="Noto Sans">
+              <text x="18" y="65">120</text><text x="18" y="145">110</text>
+              <text x="18" y="225">100</text><text x="26" y="305">90</text>
+            </g>
+            <line x1="60" y1="220" x2="640" y2="220" stroke="#0E5E52" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <g fill="#1B1E21">
+              <rect x="105" y="196" width="72" height="104"/>
+              <rect x="245" y="172" width="72" height="128"/>
+              <rect x="385" y="148" width="72" height="152"/>
+            </g>
+            <rect x="525" y="124" width="72" height="176" fill="#0E5E52"/>
+            <g font-size="17" font-weight="600" font-family="Noto Sans" fill="#1B1E21" text-anchor="middle">
+              <text x="141" y="182">103</text><text x="281" y="158">106</text>
+              <text x="421" y="134">109</text><text x="561" y="110" fill="#0E5E52">112</text>
+            </g>
+            <g font-size="15" fill="#8A867E" font-family="Noto Sans" text-anchor="middle">
+              <text x="141" y="330">Q1</text><text x="281" y="330">Q2</text>
+              <text x="421" y="330">Q3</text><text x="561" y="330">Q4</text>
+            </g>
+          </svg>
+          <p class="note">Method: NRR is calculated on accounts signed for at least 12 months; new logos are excluded. Dashed line marks the 100% baseline. Source: CRM reconciled with finance, exported November 2026.</p>
+        </div>
+      </div>
+      <div class="foot"><span>Cedar Tech · Customer Success</span><span class="pg"><b>06</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- 07 · Table -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">CEDAR&nbsp;TECH</div>
+        <div class="doc">ANNUAL REVIEW / SCORECARD</div>
+      </div>
+      <div style="margin-top:54px;">
+        <h2 class="h2">The quarterly <span class="accent">scorecard</span></h2>
+        <p class="lead">Four metrics, four quarters. This is the table we will be judged against in January.</p>
+      </div>
+      <table class="metrics">
+        <tr><th>METRIC</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>
+        <tr><td>Gross renewal rate</td><td>88.4%</td><td>90.1%</td><td>92.6%</td><td class="hl">94.2%</td></tr>
+        <tr><td>Net revenue retention</td><td>103%</td><td>106%</td><td>109%</td><td class="hl">112%</td></tr>
+        <tr><td>Median first response</td><td>3.6 hrs</td><td>1.8 hrs</td><td>47 min</td><td class="hl">23 min</td></tr>
+        <tr><td>Escalations to engineering</td><td>64</td><td>51</td><td>38</td><td class="hl">29</td></tr>
+        <tr class="total"><td>Accounts on the red list</td><td>31</td><td>24</td><td>17</td><td>9</td></tr>
+      </table>
+      <p class="note">Escalations count tickets handed to engineering after first response. Red-list count is the quarter-end snapshot of accounts with a health score under 60.</p>
+      <div class="foot"><span>Cedar Tech · Customer Success</span><span class="pg"><b>07</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- 08 · Quote -->
+  <section>
+    <div class="page quote-page">
+      <div class="quote-mark">&ldquo;</div>
+      <p class="quote-text">They are the first vendor who told us what was <b>not</b> working — in the first meeting, with numbers. That is why the renewal took <b>eleven minutes</b>.</p>
+      <div class="quote-attr">
+        <span class="who">Marta Keller</span>
+        <span class="role">VP Operations, Northgate Retail Group · customer since 2022</span>
+      </div>
+      <div class="foot" style="position:absolute;left:88px;right:88px;bottom:56px;"><span>Cedar Tech · Customer Success</span><span class="pg"><b>08</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- 09 · Comparison -->
+  <section>
+    <div class="page">
+      <div class="masthead">
+        <div class="brand">CEDAR&nbsp;TECH</div>
+        <div class="doc">ANNUAL REVIEW / THEN &amp; NOW</div>
+      </div>
+      <div style="margin-top:54px;">
+        <h2 class="h2">Last year <span class="accent">vs.</span> this year</h2>
+      </div>
+      <div class="compare">
+        <div class="side">
+          <div class="when">LAST YEAR · 2025</div>
+          <div class="big">Running on heroics</div>
+          <div class="item"><span class="k">Renewal rate</span><span class="v">87.4%</span></div>
+          <div class="item"><span class="k">First response (median)</span><span class="v">4.1 hrs</span></div>
+          <div class="item"><span class="k">QBR decision-makers in the room</span><span class="v">31%</span></div>
+          <div class="item"><span class="k">At-risk accounts found late</span><span class="v">19</span></div>
+        </div>
+        <div class="side now">
+          <div class="when">THIS YEAR · 2026</div>
+          <div class="big">Running on routine</div>
+          <div class="item"><span class="k">Renewal rate</span><span class="v">94.2%</span></div>
+          <div class="item"><span class="k">First response (median)</span><span class="v">23 min</span></div>
+          <div class="item"><span class="k">QBR decision-makers in the room</span><span class="v">58%</span></div>
+          <div class="item"><span class="k">At-risk accounts found late</span><span class="v">3</span></div>
+        </div>
+      </div>
+      <div class="foot"><span>Cedar Tech · Customer Success</span><span class="pg"><b>09</b> / 10</span></div>
+    </div>
+  </section>
+
+  <!-- 10 · Closing -->
+  <section>
+    <div class="page closing">
+      <div class="eyebrow">THANK YOU</div>
+      <div class="big">Next year,<br><span class="thin">the basics, again.</span></div>
+      <p class="sub">No new programme to announce. We will keep the three habits, close the two gaps,
+      and report against the same scorecard in January.</p>
+      <div class="contact">
+        <div><div class="k">QUESTIONS</div><div class="v">Elaine Lin · elaine@cedartech.example</div></div>
+        <div><div class="k">FULL DATA PACK</div><div class="v">Shared drive · CS / Reviews / 2026</div></div>
+        <div><div class="k">NEXT REVIEW</div><div class="v">January 20, 2027</div></div>
+      </div>
+      <div class="foot" style="position:absolute;left:88px;right:88px;bottom:56px;"><span>Cedar Tech · Customer Success</span><span class="pg"><b>10</b> / 10</span></div>
+    </div>
+  </section>
+
+</div>
+</div>
+<script src="vendor/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    width:1440, height:900, margin:0,
+    hash:true, controls:!new URLSearchParams(location.search).has('shot'), controlsTutorial:false,
+    progress:false, slideNumber:false, transition:'none',
+    backgroundTransition:'none'
+  });
+</script>
+</body>
+</html>
